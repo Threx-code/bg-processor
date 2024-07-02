@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Infrastructure\Events;
+namespace Infrastructures\Events;
 
 abstract class DomainEvent
 {

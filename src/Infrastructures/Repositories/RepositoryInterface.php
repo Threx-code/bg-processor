@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace Infrastructure\Repositories;
+namespace Infrastructures\Repositories;
 
 use Illuminate\Database\DatabaseManager;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-
+use Infrastructures\Entities\DomainEntity;
 
 /**
  * @property-read DatabaseManager $databaseManager
@@ -15,8 +15,7 @@ interface RepositoryInterface
 {
     public function all(): Collection;
     public function find(int|string $key, array $with = []): null|object;
-
-    public function create(object $entity): void;
-    public function update(int|string $key, object $entity): void;
+    public function create(DomainEntity $entity): void;
+    public function update(int|string $key, DomainEntity $entity): void;
     public function delete(int|string $key): void;
 }

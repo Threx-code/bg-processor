@@ -2,7 +2,7 @@
 
 namespace Domains\GitHub\Repositories;
 
-use Infrastructure\Repositories\Repository;
+use Infrastructures\Repositories\Repository;
 
 final class GitHubCommitRepository extends Repository
 {

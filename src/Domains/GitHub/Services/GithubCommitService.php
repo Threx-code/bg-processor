@@ -2,10 +2,11 @@
 
 namespace Domains\GitHub\Services;
 
-use App\Models\GithubCommit;
+use App\Models\Github\GithubCommit;
 use Domains\GitHub\Entities\GitHubCommitEntity;
 use Domains\GitHub\Repositories\GitHubCommitRepository;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
+use Throwable;
 
 final readonly class GithubCommitService
 {
@@ -20,5 +21,26 @@ final readonly class GithubCommitService
                 commit: $commit
             )
         );
+    }
+
+    /**
+     * @param GitHubCommitEntity $commit
+     * @return void
+     * @throws Throwable
+     */
+    public function create(GitHubCommitEntity $commit): void
+    {
+        $this->repository->create(entity: $commit);
+    }
+
+    /**
+     * @param string $key
+     * @param GitHubCommitEntity $commit
+     * @return void
+     * @throws Throwable
+     */
+    public function update(string $key, GitHubCommitEntity $commit): void
+    {
+        $this->repository->update(key: $key, entity: $commit);
     }
 }
