@@ -13,12 +13,12 @@ readonly class AdpObserver
         private Dispatcher $event
     ){}
 
-    public function created(Adp $commit): void
+    public function created(Adp $adp): void
     {
         $this->event->dispatch(
             event: new AdpCreated(
                 commit:  AdpEntity::fromEloquent(
-                    commit: $commit
+                    adp: $adp
                 )
             )
         );

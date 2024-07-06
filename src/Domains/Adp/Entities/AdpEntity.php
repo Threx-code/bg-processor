@@ -2,7 +2,7 @@
 
 namespace Domains\Adp\Entities;
 
-use Domains\AdpMetrics\Models\Cve;
+use Domains\Credit\Models\Cve;
 use Domains\Adp\Models\Adp;
 use Domains\Adp\ValueObjects\DateUpdatedObject;
 use Domains\Adp\ValueObjects\TitleObject;
