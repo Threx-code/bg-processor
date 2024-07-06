@@ -14,6 +14,7 @@ use Domains\GitHub\ValueObjects\GithubCommitObject;
 use GuzzleHttp\Client;
 use Illuminate\Console\Command;
 use Illuminate\Database\DatabaseManager;
+use Illuminate\Support\Collection;
 use JsonException;
 use Throwable;
 
@@ -63,54 +64,69 @@ class CveListV5GithubUpstream extends Command
 
         $commits = $this->service()->all();
         $dateFromDb = !empty($commits->first()) ?
-            $commits->first()->commit_date->commitDate->format(self::DATE_FORMAT) :
-            null;
+            $commits->first()->commit_date->commitDate->format(self::DATE_FORMAT) : null;
 
-//        if($commitDate !== $dateFromDb) {
-//            $dir = dirname(__DIR__, 1);
-//            $script = $dir ."/scripts/pull-repo.sh";
-//            $output = shell_exec("sh {$script}");
-//
-//            $this->info($output);
-//            $this->info('Command completed successfully');
-//        }
+        if($commitDate !== $dateFromDb) {
+            $dir = dirname(__DIR__, 2);
+            $script = $dir ."/scripts/pull-repo.sh";
+            $output = shell_exec("sh {$script}");
 
-
-        if(empty($commits->first()->key)) {
-            $this->service()->create(
-                new GitHubCommitEntity(
-                    commit_date: new GithubCommitObject(
-                        commitDate: Carbon::parse(
-                            time: $response[0]['commit']['author']['date']
-                        )->toDateTimeImmutable()
-
-                    )
-                )
-            );
-        }
-        else{
-            if($commitDate !== $dateFromDb) {
-                $this->service()->update(
-                    key: $commits->first()->key,
-                    commit: new GitHubCommitEntity(
-                        commit_date: new GithubCommitObject(
-                            commitDate: Carbon::parse(
-                                time: $response[0]['commit']['author']['date']
-                            )->toDateTimeImmutable()
-                        )
-                    )
-                );
-            }
+            $this->info($output);
+            $this->info($output);
         }
 
+        (!empty($commits->first()->key) && $commitDate !== $dateFromDb) ?
+            $this->update($commits, $commitDate):
+            $this->insert($commitDate);
+
+        $this->info('Command completed successfully');
     }
 
-    protected function service(): GithubCommitService
+    private function service(): GithubCommitService
     {
         return new GithubCommitService(
             repository: new GithubCommitRepository(
                 query: GithubCommit::query(),
                 database: resolve(DatabaseManager::class)
+            )
+        );
+    }
+
+    /**
+     * @param Collection $commits
+     * @param $date
+     * @return void
+     * @throws Throwable
+     */
+    private function update(Collection $commits, $date): void
+    {
+        $this->service()->update(
+            key: $commits->first()->key,
+            commit: new GitHubCommitEntity(
+                commit_date: new GithubCommitObject(
+                    commitDate: Carbon::parse(
+                        time: $date
+                    )->toDateTimeImmutable()
+                )
+            )
+        );
+    }
+
+    /**
+     * @param $date
+     * @return void
+     * @throws Throwable
+     */
+    private function insert($date): void
+    {
+        $this->service()->create(
+            new GitHubCommitEntity(
+                commit_date: new GithubCommitObject(
+                    commitDate: Carbon::parse(
+                        time: $date
+                    )->toDateTimeImmutable()
+
+                )
             )
         );
     }
