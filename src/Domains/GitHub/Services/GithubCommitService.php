@@ -2,8 +2,8 @@
 
 namespace Domains\GitHub\Services;
 
-use App\Models\Github\GithubCommit;
 use Domains\GitHub\Entities\GitHubCommitEntity;
+use Domains\GitHub\Models\GithubCommit;
 use Domains\GitHub\Repositories\GitHubCommitRepository;
 use Illuminate\Support\Collection;
 use Throwable;

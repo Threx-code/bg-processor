@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('cve_file_names', function (Blueprint $table) {
             $table->id();
             $table->string('key')->unique()->index();
-            $table->string('file_name')->index();
+            $table->string('fileName')->index();
             $table->string('year')->index();
             $table->timestamps();
         });

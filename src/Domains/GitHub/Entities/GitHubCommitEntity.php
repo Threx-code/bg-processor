@@ -2,14 +2,14 @@
 
 namespace Domains\GitHub\Entities;
 
-use App\Models\Github\GithubCommit;
+use Domains\GitHub\Models\GithubCommit;
 use Domains\GitHub\ValueObjects\GithubCommitObject;
 use Infrastructures\Entities\DomainEntity;
 
 final class GitHubCommitEntity extends DomainEntity
 {
     public function __construct(
-        public GithubCommitObject $commit_date,
+        public GithubCommitObject $commitDate,
         public null|string $key = null,
         public null|int $id = null
     ){}
@@ -17,7 +17,7 @@ final class GitHubCommitEntity extends DomainEntity
     public static function fromEloquent(GithubCommit $commit): GitHubCommitEntity
     {
         return new GitHubCommitEntity(
-            commit_date: $commit->commit_date,
+            commitDate: $commit->commitDate,
             key: $commit->key,
             id: $commit->id
 
@@ -27,7 +27,7 @@ final class GitHubCommitEntity extends DomainEntity
     public function toArray(): array
     {
         return [
-            'commit_date' => $this->commit_date
+            'commitDate' => $this->commitDate
         ];
     }
 }

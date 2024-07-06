@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('github_commits', function (Blueprint $table) {
             $table->id();
             $table->string('key')->unique()->index();
-            $table->string('commit_date')->index();
+            $table->string('commitDate')->index();
             $table->timestamps();
         });
     }

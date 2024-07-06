@@ -3,11 +3,15 @@
 namespace App\Console\Commands\Github;
 
 use App\Helpers\StringToDate;
-use App\Models\Github\GithubCommit;
+use Domains\GitHub\Entities\GitHubCommitEntity;
+use Domains\GitHub\Models\GithubCommit;
 use App\Services\RequestClient;
 use App\Services\RequestClientPayload;
 use Carbon\Carbon;
-use Domains\GitHub\Entities\GitHubCommitEntity;
+use Domains\AdpMetrics\Entities\AdpMetricsEntity;
+use Domains\Adp\Repositories\AdpRepository;
+use Domains\Adp\Services\AdpService;
+use Domains\Adp\ValueObjects\DateUpdatedObject;
 use Domains\GitHub\Repositories\GitHubCommitRepository;
 use Domains\GitHub\Services\GithubCommitService;
 use Domains\GitHub\ValueObjects\GithubCommitObject;
@@ -64,7 +68,8 @@ class CveListV5GithubUpstream extends Command
 
         $commits = $this->service()->all();
         $dateFromDb = !empty($commits->first()) ?
-            $commits->first()->commit_date->commitDate->format(self::DATE_FORMAT) : null;
+            $commits->first()->commitDate->commitDate->format(self::DATE_FORMAT) : null;
+
 
         if($commitDate !== $dateFromDb) {
             $dir = dirname(__DIR__, 2);
@@ -85,7 +90,7 @@ class CveListV5GithubUpstream extends Command
     private function service(): GithubCommitService
     {
         return new GithubCommitService(
-            repository: new GithubCommitRepository(
+            repository: new GitHubCommitRepository(
                 query: GithubCommit::query(),
                 database: resolve(DatabaseManager::class)
             )
@@ -103,7 +108,7 @@ class CveListV5GithubUpstream extends Command
         $this->service()->update(
             key: $commits->first()->key,
             commit: new GitHubCommitEntity(
-                commit_date: new GithubCommitObject(
+                commitDate: new GithubCommitObject(
                     commitDate: Carbon::parse(
                         time: $date
                     )->toDateTimeImmutable()
@@ -121,7 +126,7 @@ class CveListV5GithubUpstream extends Command
     {
         $this->service()->create(
             new GitHubCommitEntity(
-                commit_date: new GithubCommitObject(
+                commitDate: new GithubCommitObject(
                     commitDate: Carbon::parse(
                         time: $date
                     )->toDateTimeImmutable()
