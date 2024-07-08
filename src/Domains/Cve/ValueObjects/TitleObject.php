@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Domains\Adp\ValueObjects;
+namespace Domains\Cve\ValueObjects;
 
 final readonly class TitleObject
 {

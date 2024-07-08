@@ -4,4 +4,4 @@ namespace Domains\Adp\Repositories;
 
 use Infrastructures\Repositories\Repository;
 
-final class AdpRepository extends Repository {}
+final class CveRepository extends Repository{}

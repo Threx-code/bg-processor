@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Domains\GitHub\Observers;
 
@@ -11,13 +13,13 @@ readonly class GithubCommitObserver
 {
     public function __construct(
         private Dispatcher $event
-    ){}
+    ) {}
 
     public function created(GithubCommit $commit): void
     {
         $this->event->dispatch(
             event: new GitHubCommitCreated(
-                commit:  GitHubCommitEntity::fromEloquent(
+                commit: GitHubCommitEntity::fromEloquent(
                     commit: $commit
                 )
             )

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Infrastructures\Repositories;
 
@@ -10,14 +12,10 @@ use Throwable;
 
 abstract class Repository implements RepositoryInterface
 {
-    /**
-     * @param Builder $query
-     * @param DatabaseManager $database
-     */
     public function __construct(
         private readonly Builder $query,
         private readonly DatabaseManager $database
-    ){}
+    ) {}
 
     /**
      * @return Collection
@@ -27,12 +25,7 @@ abstract class Repository implements RepositoryInterface
         return $this->query->get();
     }
 
-    /**
-     * @param string|int $key
-     * @param array $with
-     * @return object|null
-     */
-    public function find(string|int $key, array $with = []): null|object
+    public function find(string|int $key, array $with = []): ?object
     {
         return $this->query->with(
             relations: $with
@@ -49,7 +42,7 @@ abstract class Repository implements RepositoryInterface
     public function create(DomainEntity $entity): void
     {
         $this->database->transaction(
-            callback: fn() => $this->query->create(
+            callback: fn () => $this->query->create(
                 attributes: $entity->toArray()
             ),
             attempts: 3
@@ -65,12 +58,9 @@ abstract class Repository implements RepositoryInterface
     public function update(string|int $key, DomainEntity $entity): void
     {
         $this->database->transaction(
-            callback: fn() => $this->query->where(
-                column: 'key',
-                value: $key
-            )->first()->update(
-                attributes: $entity->toArray()
-            ),
+            callback: function () use ($key, $entity) {
+                $this->query->where('key', $key)->first()->update($entity->toArray());
+            },
             attempts: 3
         );
     }
@@ -83,7 +73,7 @@ abstract class Repository implements RepositoryInterface
     public function delete(string|int $key): void
     {
         $this->database->transaction(
-            callback: fn() => $this->query->findOrFail(
+            callback: fn () => $this->query->findOrFail(
                 id: $key
             )->delete(),
             attempts: 3

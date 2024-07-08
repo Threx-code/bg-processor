@@ -1,31 +1,32 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Domains\Adp\Entities;
 
-use Domains\Credit\Models\Cve;
 use Domains\Adp\Models\Adp;
-use Domains\Adp\ValueObjects\DateUpdatedObject;
-use Domains\Adp\ValueObjects\TitleObject;
+use Domains\Cve\Models\Cve;
+use Domains\Helpers\ValueObjects\DateObject;
 use Infrastructures\Entities\DomainEntity;
 
 final class AdpEntity extends DomainEntity
 {
     public function __construct(
-        public TitleObject $title,
-        public DateUpdatedObject $dateUpdated,
+        public DateObject $dateUpdated,
         public Cve $cve,
-        public null|string $shortName,
-        public null|string $orgId,
-        public null|string       $key = null,
-        public null|int          $id = null
-    ){}
+        public ?string $title,
+        public ?string $shortName,
+        public ?string $orgId,
+        public ?string $key = null,
+        public ?int $id = null
+    ) {}
 
     public static function fromEloquent(Adp $adp): AdpEntity
     {
         return new AdpEntity(
-            title: $adp->title,
             dateUpdated: $adp->dateUpdated,
             cve: $adp->cve,
+            title: $adp->title,
             shortName: $adp->shortName,
             orgId: $adp->orgId,
             key: $adp->key,
@@ -45,7 +46,3 @@ final class AdpEntity extends DomainEntity
         ];
     }
 }
-
-
-$table->timestamp('date_updated')->nullable();
-

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Infrastructures\Repositories;
 
@@ -14,8 +16,12 @@ use Infrastructures\Entities\DomainEntity;
 interface RepositoryInterface
 {
     public function all(): Collection;
-    public function find(int|string $key, array $with = []): null|object;
+
+    public function find(int|string $key, array $with = []): ?object;
+
     public function create(DomainEntity $entity): void;
+
     public function update(int|string $key, DomainEntity $entity): void;
+
     public function delete(int|string $key): void;
 }

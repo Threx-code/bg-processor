@@ -1,28 +1,29 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Domains\Adp\Models;
 
-use Domains\AdpMetrics\Models\Cve;
-use Domains\Adp\Casts\Date;
-use Domains\Adp\Casts\Title;
-use Domains\Adp\Observers\AdpObserver;
-use Domains\Adp\ValueObjects\DateUpdatedObject;
+use Domains\Cve\Casts\Date;
+use Domains\Cve\Models\Cve;
+use Domains\Cve\Observers\CveObserver;
+use Domains\Helpers\ValueObjects\DateObject;
 use Domains\Models\concerns\HasKey;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @property int $id
  * @property string $key
- * @property Title $title
+ * @property string $title
  * @property string $shortName
  * @property string $orgId
- * @property DateUpdatedObject $dateUpdated
+ * @property DateObject $dateUpdated
  * @property Cve cveId
  */
-
-#[observedBy(AdpObserver::class)]
+#[observedBy(CveObserver::class)]
 class Adp extends Model
 {
     use HasFactory, HasKey;
@@ -33,8 +34,16 @@ class Adp extends Model
     {
         return [
             'dateUpdated' => Date::class,
-            'title' => Title::class,
-            'cveId' => Cve::class
+            'cveId' => Cve::class,
         ];
+    }
+
+    public function cveId(): BelongsTo
+    {
+        return $this->belongsTo(
+            related: Cve::class,
+            foreignKey: 'cveId',
+            ownerKey: 'id'
+        );
     }
 }

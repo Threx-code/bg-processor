@@ -4,4 +4,4 @@ namespace Domains\GitHub\Repositories;
 
 use Infrastructures\Repositories\Repository;
 
-final class GitHubCommitRepository extends Repository{}
+final class GitHubCommitRepository extends Repository {}

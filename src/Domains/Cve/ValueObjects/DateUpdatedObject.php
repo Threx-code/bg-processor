@@ -1,6 +1,6 @@
 <?php
 
-namespace Domains\Adp\ValueObjects;
+namespace Domains\Cve\ValueObjects;
 
 class DateUpdatedObject
 {

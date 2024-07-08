@@ -1,20 +1,18 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Console\Commands\Github;
 
 use App\Helpers\StringToDate;
-use Domains\GitHub\Entities\GitHubCommitEntity;
-use Domains\GitHub\Models\GithubCommit;
 use App\Services\RequestClient;
 use App\Services\RequestClientPayload;
 use Carbon\Carbon;
-use Domains\AdpMetrics\Entities\AdpMetricsEntity;
-use Domains\Adp\Repositories\AdpRepository;
-use Domains\Adp\Services\AdpService;
-use Domains\Adp\ValueObjects\DateUpdatedObject;
+use Domains\GitHub\Entities\GitHubCommitEntity;
+use Domains\GitHub\Models\GithubCommit;
 use Domains\GitHub\Repositories\GitHubCommitRepository;
 use Domains\GitHub\Services\GithubCommitService;
-use Domains\GitHub\ValueObjects\GithubCommitObject;
+use Domains\Helpers\ValueObjects\DateObject;
 use GuzzleHttp\Client;
 use Illuminate\Console\Command;
 use Illuminate\Database\DatabaseManager;
@@ -25,6 +23,7 @@ use Throwable;
 class CveListV5GithubUpstream extends Command
 {
     const DATE_FORMAT = 'Y-m-d H:i:s';
+
     /**
      * The name and signature of the console command.
      *
@@ -41,21 +40,22 @@ class CveListV5GithubUpstream extends Command
 
     /**
      * Execute the console command.
+     *
      * @throws JsonException
      * @throws Throwable
      */
     public function handle(): void
     {
         $sendRequest = new RequestClient(
-            request:  new RequestClientPayload(
+            request: new RequestClientPayload(
                 payload: [],
                 method: 'GET',
                 url: env('CVE_LIST_REPO_COMMIT_URL'),
                 client: new Client(['verify' => true]),
                 headers: [
-                    "Content-Type" => "application/json",
-                    "Accept: application/json",
-                    "Authorization" => ''
+                    'Content-Type' => 'application/json',
+                    'Accept: application/json',
+                    'Authorization' => '',
                 ]
             )
         );
@@ -67,22 +67,25 @@ class CveListV5GithubUpstream extends Command
         );
 
         $commits = $this->service()->all();
-        $dateFromDb = !empty($commits->first()) ?
-            $commits->first()->commitDate->commitDate->format(self::DATE_FORMAT) : null;
+        $checkCommitData = $commits->first();
 
+        $dateFromDb = ! empty($commits->first()) ?
+            $checkCommitData->commitDate->date->format(self::DATE_FORMAT) : null;
 
-        if($commitDate !== $dateFromDb) {
+        if ($commitDate !== $dateFromDb) {
             $dir = dirname(__DIR__, 2);
-            $script = $dir ."/scripts/pull-repo.sh";
+            $script = $dir.'/scripts/pull-repo.sh';
             $output = shell_exec("sh {$script}");
 
             $this->info($output);
             $this->info($output);
         }
 
-        (!empty($commits->first()->key) && $commitDate !== $dateFromDb) ?
-            $this->update($commits, $commitDate):
+        if (! empty($checkCommitData->key) && $commitDate !== $dateFromDb) {
+            $this->update($commits, $commitDate);
+        } elseif (empty($checkCommitData->key)) {
             $this->insert($commitDate);
+        }
 
         $this->info('Command completed successfully');
     }
@@ -98,18 +101,15 @@ class CveListV5GithubUpstream extends Command
     }
 
     /**
-     * @param Collection $commits
-     * @param $date
-     * @return void
      * @throws Throwable
      */
     private function update(Collection $commits, $date): void
     {
         $this->service()->update(
             key: $commits->first()->key,
-            commit: new GitHubCommitEntity(
-                commitDate: new GithubCommitObject(
-                    commitDate: Carbon::parse(
+            entity: new GitHubCommitEntity(
+                commitDate: new DateObject(
+                    date: Carbon::parse(
                         time: $date
                     )->toDateTimeImmutable()
                 )
@@ -118,16 +118,14 @@ class CveListV5GithubUpstream extends Command
     }
 
     /**
-     * @param $date
-     * @return void
      * @throws Throwable
      */
     private function insert($date): void
     {
         $this->service()->create(
             new GitHubCommitEntity(
-                commitDate: new GithubCommitObject(
-                    commitDate: Carbon::parse(
+                commitDate: new DateObject(
+                    date: Carbon::parse(
                         time: $date
                     )->toDateTimeImmutable()
 

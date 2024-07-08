@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Domains\GitHub\Events;
 
@@ -9,5 +11,5 @@ final class GitHubCommitCreated extends DomainEvent
 {
     public function __construct(
         public readonly GitHubCommitEntity $commit
-    ){}
+    ) {}
 }

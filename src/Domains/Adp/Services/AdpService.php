@@ -1,46 +1,23 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Domains\Adp\Services;
 
 use Domains\Adp\Entities\AdpEntity;
 use Domains\Adp\Models\Adp;
-use Domains\Adp\Repositories\AdpRepository;
-use Illuminate\Support\Collection;
-use Throwable;
+use Illuminate\Database\Eloquent\Model;
+use Infrastructures\Entities\DomainEntity;
+use Infrastructures\Exceptions\ModelValidator;
+use Infrastructures\Services\BaseService;
 
-final readonly class AdpService
+final class AdpService extends BaseService
 {
-    public function __construct(
-        private AdpRepository $repository
-    ){}
-
-    public function all(): Collection
+    protected function mapToEntity(Model $model): DomainEntity
     {
-        return $this->repository->all()->map(
-            callback: fn(Adp $adp): AdpEntity => AdpEntity::fromEloquent(
-                adp: $adp
-            )
-        );
-    }
+        ModelValidator::validate(model: $model, expectedModel: Adp::class);
 
-    /**
-     * @param AdpEntity $commit
-     * @return void
-     * @throws Throwable
-     */
-    public function create(AdpEntity $commit): void
-    {
-        $this->repository->create(entity: $commit);
-    }
-
-    /**
-     * @param string $key
-     * @param AdpEntity $commit
-     * @return void
-     * @throws Throwable
-     */
-    public function update(string $key, AdpEntity $commit): void
-    {
-        $this->repository->update(key: $key, entity: $commit);
+        /** @var Adp $model */
+        return AdpEntity::fromEloquent(adp: $model);
     }
 }
