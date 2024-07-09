@@ -2,9 +2,9 @@
 
 namespace Domains\Cve\Observers;
 
-use Domains\Adp\Entities\CveEntity;
-use Domains\Adp\Models\Adp;
+use Domains\Cve\Entities\CveEntity;
 use Domains\Cve\Events\CveCreated;
+use Domains\Cve\Models\Cve;
 use Illuminate\Events\Dispatcher;
 
 readonly class CveObserver
@@ -13,12 +13,12 @@ readonly class CveObserver
         private Dispatcher $event
     ){}
 
-    public function created(Adp $adp): void
+    public function created(Cve $cve): void
     {
         $this->event->dispatch(
             event: new CveCreated(
                 commit:  CveEntity::fromEloquent(
-                    adp: $adp
+                    cve: $cve
                 )
             )
         );

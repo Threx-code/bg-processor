@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Domains\Cve\Entities;
 
 use Domains\Cve\Models\Cve;
+use Domains\Helpers\Payloads\FieldInterface;
 use Domains\Helpers\ValueObjects\DateObject;
 use Infrastructures\Entities\DomainEntity;
 
@@ -40,13 +41,13 @@ final class CveEntity extends DomainEntity
     public function toArray(): array
     {
         return [
-            'cveId' => $this->cveId,
-            'title' => $this->title,
-            'state' => $this->state,
-            'assignerShortName' => $this->assignerShortName,
-            'dateReserved' => $this->dateReserved,
-            'datePublished' => $this->datePublished,
-            'dateUpdated' => $this->dateUpdated,
+            FieldInterface::FIELD_CVE_ID => $this->cveId,
+            FieldInterface::FIELD_TITLE => $this->title,
+            FieldInterface::FIELD_STATE => $this->state,
+            FieldInterface::FIELD_ASSIGNER_SHORT_NAME => $this->assignerShortName,
+            FieldInterface::FIELD_DATE_RESERVED => $this->dateReserved,
+            FieldInterface::FIELD_DATE_PUBLISHED => $this->datePublished,
+            FieldInterface::FIELD_DATE_UPDATED => $this->dateUpdated,
         ];
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Domains\ProblemType\Models;
+namespace Domains\Solution\Models;
 
 use Domains\Cve\Models\Cve;
 use Domains\Models\concerns\HasKey;
@@ -12,8 +12,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $id
  * @property string $key
  * @property Cve $cveId
+ * @property string $lang
+ * @property string $value
  */
-class ProblemType extends Model
+class Solution extends Model
 {
     use HasFactory, HasKey;
 

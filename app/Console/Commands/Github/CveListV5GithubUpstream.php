@@ -67,6 +67,7 @@ class CveListV5GithubUpstream extends Command
         );
 
         $commits = $this->service()->all();
+
         $checkCommitData = $commits->first();
 
         $dateFromDb = ! empty($commits->first()) ?

@@ -2,11 +2,10 @@
 
 namespace Domains\Cve\Events;
 
-use Domains\Adp\Entities\AdpEntity;
-
+use Domains\Cve\Entities\CveEntity;
 use Infrastructures\Events\DomainEvent;
 
 final class CveCreated extends DomainEvent
 {
-    public function __construct(public readonly AdpEntity $commit){}
+    public function __construct(public readonly CveEntity $commit){}
 }

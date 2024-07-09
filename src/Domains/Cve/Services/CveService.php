@@ -2,45 +2,21 @@
 
 namespace Domains\Cve\Services;
 
-use Domains\Adp\Entities\CveEntity;
-use Domains\Adp\Models\Adp;
-use Domains\Adp\Repositories\CveRepository;
-use Illuminate\Support\Collection;
-use Throwable;
+use Domains\Cve\Entities\CveEntity;
+use Domains\Cve\Models\Cve;
+use Illuminate\Database\Eloquent\Model;
+use Infrastructures\Entities\DomainEntity;
+use Infrastructures\Exceptions\ModelValidator;
+use Infrastructures\Services\BaseService;
 
-final readonly class CveService
+
+final  class CveService extends BaseService
 {
-    public function __construct(
-        private CveRepository $repository
-    ){}
-
-    public function all(): Collection
+    protected function mapToEntity(Model $model): DomainEntity
     {
-        return $this->repository->all()->map(
-            callback: fn(Adp $adp): CveEntity => CveEntity::fromEloquent(
-                adp: $adp
-            )
-        );
-    }
+        ModelValidator::validate($model, CveEntity::class);
 
-    /**
-     * @param CveEntity $commit
-     * @return void
-     * @throws Throwable
-     */
-    public function create(CveEntity $commit): void
-    {
-        $this->repository->create(entity: $commit);
-    }
-
-    /**
-     * @param string $key
-     * @param CveEntity $commit
-     * @return void
-     * @throws Throwable
-     */
-    public function update(string $key, CveEntity $commit): void
-    {
-        $this->repository->update(key: $key, entity: $commit);
+        /** @var Cve $model */
+        return CveEntity::fromEloquent($model);
     }
 }

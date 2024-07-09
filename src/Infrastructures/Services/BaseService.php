@@ -8,12 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Infrastructures\Entities\DomainEntity;
 use Infrastructures\Repositories\Repository;
+use Infrastructures\Repositories\RepositoryInterface;
 use Throwable;
 
 abstract class BaseService
 {
     public function __construct(
-        private readonly Repository $repository
+        private readonly RepositoryInterface $repository
     ) {}
 
     /**
