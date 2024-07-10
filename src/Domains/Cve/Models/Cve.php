@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Domains\Cve\Models;
 
-use Domains\CveFileNames\Observers\CveFileNameObserver;
+use Domains\CveFileNames\Observers\Observer;
 use Domains\Helpers\Casts\Date;
 use Domains\Helpers\ValueObjects\DateObject;
 use Domains\Models\concerns\HasKey;
@@ -24,7 +24,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property DateObject $dateUpdated
  */
 
-#[ObservedBy(CveFileNameObserver::class)]
+#[ObservedBy(Observer::class)]
 class Cve extends Model
 {
     use HasFactory, HasKey;

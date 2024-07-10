@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Domains\GitHub\Models;
 
-use Domains\GitHub\Observers\GithubCommitObserver;
+use Domains\GitHub\Observers\Observer as GitHubCommitObserver;
 use Domains\Helpers\Casts\Date;
 use Domains\Helpers\Payloads\FieldInterface;
 use Domains\Helpers\ValueObjects\DateObject;
@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  * @property DateObject $commitDate
  */
-#[ObservedBy(GithubCommitObserver::class)]
+#[ObservedBy(GitHubCommitObserver::class)]
 class GithubCommit extends Model
 {
     use HasFactory, HasKey;

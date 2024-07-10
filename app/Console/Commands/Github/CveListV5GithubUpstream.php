@@ -8,10 +8,10 @@ use App\Helpers\StringToDate;
 use App\Services\RequestClient;
 use App\Services\RequestClientPayload;
 use Carbon\Carbon;
-use Domains\GitHub\Entities\GitHubCommitEntity;
+use Domains\GitHub\Entities\Entity;
 use Domains\GitHub\Models\GithubCommit;
-use Domains\GitHub\Repositories\GitHubCommitRepository;
-use Domains\GitHub\Services\GithubCommitService;
+use Domains\GitHub\Repositories\Repository;
+use Domains\GitHub\Services\Service;
 use Domains\Helpers\ValueObjects\DateObject;
 use GuzzleHttp\Client;
 use Illuminate\Console\Command;
@@ -91,10 +91,10 @@ class CveListV5GithubUpstream extends Command
         $this->info('Command completed successfully');
     }
 
-    private function service(): GithubCommitService
+    private function service(): Service
     {
-        return new GithubCommitService(
-            repository: new GitHubCommitRepository(
+        return new Service(
+            repository: new Repository(
                 query: GithubCommit::query(),
                 database: resolve(DatabaseManager::class)
             )
@@ -108,7 +108,7 @@ class CveListV5GithubUpstream extends Command
     {
         $this->service()->update(
             key: $commits->first()->key,
-            entity: new GitHubCommitEntity(
+            entity: new Entity(
                 commitDate: new DateObject(
                     date: Carbon::parse(
                         time: $date
@@ -124,7 +124,7 @@ class CveListV5GithubUpstream extends Command
     private function insert($date): void
     {
         $this->service()->create(
-            new GitHubCommitEntity(
+            new Entity(
                 commitDate: new DateObject(
                     date: Carbon::parse(
                         time: $date

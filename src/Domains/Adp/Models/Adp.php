@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Domains\Adp\Models;
 
-use Domains\Cve\Casts\Date;
 use Domains\Cve\Models\Cve;
-use Domains\CveFileNames\Observers\CveFileNameObserver;
+use Domains\CveFileNames\Observers\Observer;
+use Domains\Helpers\Casts\Date;
 use Domains\Helpers\ValueObjects\DateObject;
 use Domains\Models\concerns\HasKey;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
@@ -23,7 +23,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property DateObject $dateUpdated
  * @property Cve cveId
  */
-#[observedBy(CveFileNameObserver::class)]
+#[observedBy(Observer::class)]
 class Adp extends Model
 {
     use HasFactory, HasKey;
