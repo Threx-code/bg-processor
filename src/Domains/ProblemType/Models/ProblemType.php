@@ -12,7 +12,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $id
  * @property string $key
  * @property Cve $cveId
+ * @property string $cweId
+ * @property string $description
+ * @property string $lang
+ * @property string $type
  */
+
 class ProblemType extends Model
 {
     use HasFactory, HasKey;

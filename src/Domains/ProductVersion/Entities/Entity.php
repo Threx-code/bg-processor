@@ -4,40 +4,47 @@ declare(strict_types=1);
 
 namespace Domains\ProductVersion\Entities;
 
+use Domains\AffectedProduct\Models\AffectedProduct;
+use Domains\Helpers\Payloads\FieldInterface;
 use Domains\ProductVersion\Models\ProductVersion;
 use Infrastructures\Entities\DomainEntity;
 
 final class Entity extends DomainEntity
 {
     public function __construct(
-        public ?string $fileName,
+        public AffectedProduct $affectedProduct,
+        public ?string $version,
+        public ?string $lessThan,
+        public ?string $status,
+        public ?string $versionType,
         public ?string $year,
         public ?string $key = null,
         public ?int $id = null
     ) {}
 
-    /**
-     * @property int $id
-     * @property string $key
-     * @property string $fileName
-     * @property string $year
-     */
-
-    public static function fromEloquent(ProductVersion $cveFileNames): Entity
+    public static function fromEloquent(ProductVersion $version): Entity
     {
         return new self(
-            fileName: $cveFileNames->fileName,
-            year: $cveFileNames->year,
-            key: $cveFileNames->key,
-            id: $cveFileNames->id
+            affectedProduct: $version->affectedProductId,
+            version: $version->version,
+            lessThan: $version->lessThan,
+            status: $version->status,
+            versionType: $version->versionType,
+            year: $version->year,
+            key: $version->key,
+            id: $version->id
         );
     }
 
     public function toArray(): array
     {
         return [
-            'fileName' => $this->fileName,
-            'year' => $this->year,
+            FieldInterface::FIELD_AFFECTED_PRODUCT_ID => $this->affectedProduct->id,
+            FieldInterface::FIELD_VERSION => $this->version,
+            FieldInterface::FIELD_LESS_THAN => $this->lessThan,
+            FieldInterface::FIELD_STATUS => $this->status,
+            FieldInterface::FIELD_VERSION_TYPE => $this->versionType,
+            FieldInterface::FIELD_YEAR => $this->year,
         ];
     }
 }

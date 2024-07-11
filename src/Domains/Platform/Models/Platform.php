@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @property int $id
- * @property  string $key
+ * @property string $key
  * @property AffectedProduct $affectedProductId
  * @property string $platform
  */
@@ -24,6 +24,7 @@ class Platform extends Model
     {
         return $this->belongsTo(AffectedProduct::class, 'affectedProductId', 'id');
     }
+
     protected function casts(): array
     {
         return [

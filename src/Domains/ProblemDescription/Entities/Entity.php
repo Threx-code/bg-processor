@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Domains\ProblemDescription\Entities;
 
-use Domains\CveFileNames\Models\CveFileNames;
 use Domains\Helpers\Payloads\FieldInterface;
 use Domains\ProblemDescription\Models\ProblemDescription;
 use Domains\ProblemType\Models\ProblemType;
@@ -21,7 +20,6 @@ final class Entity extends DomainEntity
         public ?string $key = null,
         public ?int $id = null
     ) {}
-
 
     public static function fromEloquent(ProblemDescription $description): Entity
     {
@@ -43,7 +41,7 @@ final class Entity extends DomainEntity
             FieldInterface::FIELD_CWE_ID => $this->cweId,
             FieldInterface::FIELD_LANG => $this->lang,
             FieldInterface::FIELD_TYPE => $this->type,
-            FieldInterface::FIELD_DESCRIPTION => $this->description
+            FieldInterface::FIELD_DESCRIPTION => $this->description,
         ];
     }
 }
