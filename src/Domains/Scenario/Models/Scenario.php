@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string $key
  * @property Metric $metricId
  * @property string $lang
+ * @property string $value
  */
 class Scenario extends Model
 {

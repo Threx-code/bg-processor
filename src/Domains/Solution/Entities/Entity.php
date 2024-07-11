@@ -4,14 +4,17 @@ declare(strict_types=1);
 
 namespace Domains\Solution\Entities;
 
+use Domains\Cve\Models\Cve;
+use Domains\Helpers\Payloads\FieldInterface;
 use Domains\Solution\Models\Solution;
 use Infrastructures\Entities\DomainEntity;
 
 final class Entity extends DomainEntity
 {
     public function __construct(
-        public ?string $fileName,
-        public ?string $year,
+        public Cve $cve,
+        public ?string $lang,
+        public ?string $value,
         public ?string $key = null,
         public ?int $id = null
     ) {}
@@ -19,25 +22,27 @@ final class Entity extends DomainEntity
     /**
      * @property int $id
      * @property string $key
-     * @property string $fileName
-     * @property string $year
+     * @property Cve $cveId
+     * @property string $lang
+     * @property string $value
      */
-
-    public static function fromEloquent(Solution $cveFileNames): Entity
+    public static function fromEloquent(Solution $solution): Entity
     {
         return new self(
-            fileName: $cveFileNames->fileName,
-            year: $cveFileNames->year,
-            key: $cveFileNames->key,
-            id: $cveFileNames->id
+            cve: $solution->cveId,
+            lang: $solution->lang,
+            value: $solution->value,
+            key: $solution->key,
+            id: $solution->id
         );
     }
 
     public function toArray(): array
     {
         return [
-            'fileName' => $this->fileName,
-            'year' => $this->year,
+            FieldInterface::FIELD_CVE_ID => $this->cve->id,
+            FieldInterface::FIELD_LANG => $this->lang,
+            FieldInterface::FIELD_VALUE => $this->value,
         ];
     }
 }

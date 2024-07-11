@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Domains\CveFileNames\Services;
+namespace Domains\Scenario\Services;
 
-use Domains\CveFileNames\Entities\Entity;
-use Domains\CveFileNames\Models\CveFileNames;
+use Domains\Scenario\Entities\Entity;
+use Domains\Scenario\Models\Scenario;
 use Illuminate\Database\Eloquent\Model;
 use Infrastructures\Entities\DomainEntity;
 use Infrastructures\Exceptions\ModelValidator;
@@ -15,9 +15,9 @@ final class Service extends BaseService
 {
     protected function mapToEntity(Model $model): DomainEntity
     {
-        ModelValidator::validate($model, Entity::class);
+        ModelValidator::validate(model: $model, expectedModel: Entity::class);
 
-        /** @var CveFileNames $model */
-        return Entity::fromEloquent($model);
+        /** @var Scenario $model */
+        return Entity::fromEloquent(scenario: $model);
     }
 }

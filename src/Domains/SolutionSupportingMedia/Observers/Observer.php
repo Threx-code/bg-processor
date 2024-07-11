@@ -20,7 +20,7 @@ readonly class Observer
         $this->event->dispatch(
             event: new Created(
                 entity: Entity::fromEloquent(
-                    cveFileNames: $cveFileNames
+                    supportingMedia: $cveFileNames
                 )
             )
         );

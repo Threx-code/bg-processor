@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('key')->unique()->index();
             $table->foreignId('metricId')->index()->constrained('metrics')->cascadeOnDelete();
             $table->string('lang')->nullable();
+            $table->string('value')->nullable();
             $table->timestamps();
         });
     }
