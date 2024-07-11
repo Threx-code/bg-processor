@@ -2,42 +2,38 @@
 
 declare(strict_types=1);
 
-namespace Domains\CveFileNames\Entities;
+namespace Domains\Description\Entities;
 
-use Domains\CveFileNames\Models\CveFileNames;
+use Domains\Cve\Models\Cve;
+use Domains\Description\Models\Description;
+use Domains\Helpers\Payloads\FieldInterface;
 use Infrastructures\Entities\DomainEntity;
 
 final class Entity extends DomainEntity
 {
     public function __construct(
-        public ?string $fileName,
-        public ?string $year,
+        public Cve $cveId,
+        public string $value,
         public ?string $key = null,
         public ?int $id = null
     ) {}
 
-    /**
-     * @property int $id
-     * @property string $key
-     * @property string $fileName
-     * @property string $year
-     */
 
-    public static function fromEloquent(CveFileNames $cveFileNames): Entity
+    public static function fromEloquent(Description $description): Entity
     {
         return new self(
-            fileName: $cveFileNames->fileName,
-            year: $cveFileNames->year,
-            key: $cveFileNames->key,
-            id: $cveFileNames->id
+            cveId: $description->cveId,
+            value: $description->value,
+            key: $description->key,
+            id: $description->id
         );
     }
 
     public function toArray(): array
     {
         return [
-            'fileName' => $this->fileName,
-            'year' => $this->year,
+            FieldInterface::FIELD_CVE_ID => $this->cveId->id,
+            FieldInterface::FIELD_VALUE => $this->value,
         ];
     }
 }

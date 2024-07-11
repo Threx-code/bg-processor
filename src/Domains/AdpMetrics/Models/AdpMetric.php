@@ -41,8 +41,6 @@ class AdpMetric extends Model
         return [
             'date' => Date::class,
         ];
-
     }
 }
 
-$table->timestamp('date')->nullable();

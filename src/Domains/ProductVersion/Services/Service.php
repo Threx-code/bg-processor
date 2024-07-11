@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Domains\ProductVersion\Services;
 
-use Domains\CveFileNames\Entities\Entity;
-use Domains\CveFileNames\Models\CveFileNames;
+use Domains\Reference\Entities\Entity;
+use Domains\Reference\Models\Reference;
 use Illuminate\Database\Eloquent\Model;
 use Infrastructures\Entities\DomainEntity;
 use Infrastructures\Exceptions\ModelValidator;
@@ -17,7 +17,7 @@ final class Service extends BaseService
     {
         ModelValidator::validate($model, Entity::class);
 
-        /** @var CveFileNames $model */
+        /** @var Reference $model */
         return Entity::fromEloquent($model);
     }
 }

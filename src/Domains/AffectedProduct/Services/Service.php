@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Domains\AffectedProduct\Services;
 
-use Domains\Credit\Entities\Entity;
-use Domains\Adp\Models\Adp;
+use Domains\AffectedProduct\Models\AffectedProduct;
+use Domains\AffectedProduct\Entities\Entity;
 use Illuminate\Database\Eloquent\Model;
 use Infrastructures\Exceptions\ModelValidator;
 use Infrastructures\Services\BaseService;
@@ -14,9 +14,9 @@ final class Service extends BaseService
 {
     protected function mapToEntity(Model $model): Entity
     {
-        ModelValidator::validate(model: $model, expectedModel: Adp::class);
+        ModelValidator::validate(model: $model, expectedModel: AffectedProduct::class);
 
-        /** @var Adp $model */
-        return Entity::fromEloquent(adp: $model);
+        /** @var AffectedProduct $model */
+        return Entity::fromEloquent(product: $model);
     }
 }

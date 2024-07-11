@@ -2,6 +2,6 @@
 
 namespace Domains\Adp\Repositories;
 
-use Infrastructures\Repositories\Repository;
+use Infrastructures\Repositories\Repository as BaseRepository;
 
-final class Repository extends Repository {}
+final class Repository extends BaseRepository {}

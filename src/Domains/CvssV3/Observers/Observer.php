@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Domains\CveFileNames\Observers;
+namespace Domains\CvssV3\Observers;
 
-use Domains\CveFileNames\Entities\Entity;
-use Domains\CveFileNames\Events\Created;
-use Domains\CveFileNames\Models\CveFileNames;
+use Domains\CvssV3\Entities\Entity;
+use Domains\CvssV3\Events\Created;
+use Domains\CvssV3\Models\CvssV3;
 use Illuminate\Events\Dispatcher;
 
 readonly class Observer
@@ -15,12 +15,12 @@ readonly class Observer
         private Dispatcher $event
     ) {}
 
-    public function created(CveFileNames $cveFileNames): void
+    public function created(CvssV3 $cvssV3): void
     {
         $this->event->dispatch(
             event: new Created(
                 entity: Entity::fromEloquent(
-                    cveFileNames: $cveFileNames
+                    cvssV3: $cvssV3
                 )
             )
         );

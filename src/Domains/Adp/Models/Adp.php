@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Domains\Adp\Models;
 
+use Domains\Adp\Observers\Observer;
+use Domains\AdpMetrics\Models\AdpMetric;
 use Domains\Cve\Models\Cve;
-use Domains\CveFileNames\Observers\Observer;
 use Domains\Helpers\Casts\Date;
 use Domains\Helpers\ValueObjects\DateObject;
 use Domains\Models\concerns\HasKey;
@@ -13,6 +14,7 @@ use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property int $id
@@ -44,6 +46,15 @@ class Adp extends Model
             related: Cve::class,
             foreignKey: 'cveId',
             ownerKey: 'id'
+        );
+    }
+
+    public function adpMetrics(): HasMany
+    {
+        return $this->hasMany(
+            related: AdpMetric::class,
+            foreignKey: 'adpId',
+            localKey: 'id'
         );
     }
 }

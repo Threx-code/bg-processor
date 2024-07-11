@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
 
-namespace Domains\Adp\Repositories;
+namespace Domains\Credit\Repositories;
 
-use Infrastructures\Repositories\Repository;
+use Infrastructures\Repositories\Repository as BaseRepository;
 
-final class AdpRepository extends Repository {}
+final class Repository extends BaseRepository {}

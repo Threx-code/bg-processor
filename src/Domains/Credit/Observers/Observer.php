@@ -6,7 +6,7 @@ namespace Domains\Credit\Observers;
 
 use Domains\Credit\Entities\Entity;
 use Domains\Credit\Events\Created;
-use Domains\Adp\Models\Adp;
+use Domains\Credit\Models\Credit;
 use Illuminate\Events\Dispatcher;
 
 readonly class Observer
@@ -15,12 +15,12 @@ readonly class Observer
         private Dispatcher $event
     ) {}
 
-    public function created(Adp $adp): void
+    public function created(Credit $credit): void
     {
         $this->event->dispatch(
             event: new Created(
                 commit: Entity::fromEloquent(
-                    adp: $adp
+                    credit: $credit
                 )
             )
         );

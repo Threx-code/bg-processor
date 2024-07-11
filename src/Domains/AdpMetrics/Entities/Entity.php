@@ -6,6 +6,7 @@ namespace Domains\AdpMetrics\Entities;
 
 use Domains\Adp\Models\Adp;
 use Domains\AdpMetrics\Models\AdpMetric;
+use Domains\Helpers\Payloads\FieldInterface;
 use Domains\Helpers\ValueObjects\DateObject;
 use Infrastructures\Entities\DomainEntity;
 
@@ -28,7 +29,7 @@ final class Entity extends DomainEntity
     public static function fromEloquent(AdpMetric $adpMetric): Entity
     {
         return new self(
-            adp: $adpMetric->adp,
+            adp: $adpMetric->adpId,
             type: $adpMetric->type,
             contentId: $adpMetric->contentId,
             role: $adpMetric->role,
@@ -45,15 +46,15 @@ final class Entity extends DomainEntity
     public function toArray(): array
     {
         return [
-            'adpId' => $this->adp->id,
-            'type' => $this->type,
-            'contentId' => $this->contentId,
-            'role' => $this->role,
-            'exploitation' => $this->exploitation,
-            'automatable' => $this->automatable,
-            'technicalImpact' => $this->technicalImpact,
-            'version' => $this->version,
-            'date' => $this->date,
+            FieldInterface::FIELD_ADP_ID => $this->adp->id,
+            FieldInterface::FIELD_TYPE => $this->type,
+            FieldInterface::FIELD_CONTENT_ID => $this->contentId,
+            FieldInterface::FIELD_ROLE => $this->role,
+            FieldInterface::FIELD_EXPLOITATION => $this->exploitation,
+            FieldInterface::FIELD_AUTOMATABLE => $this->automatable,
+            FieldInterface::FIELD_TECHNICAL_IMPACT => $this->technicalImpact,
+            FieldInterface::FIELD_VERSION => $this->version,
+            FieldInterface::FIELD_DATE => $this->date,
         ];
     }
 }

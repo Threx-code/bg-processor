@@ -4,45 +4,41 @@ declare(strict_types=1);
 
 namespace Domains\AffectedProduct\Entities;
 
-use Domains\Adp\Models\Adp;
+use Domains\AffectedProduct\Models\AffectedProduct;
 use Domains\Cve\Models\Cve;
-use Domains\Helpers\ValueObjects\DateObject;
+use Domains\Helpers\Payloads\FieldInterface;
 use Infrastructures\Entities\DomainEntity;
 
 final class Entity extends DomainEntity
 {
     public function __construct(
-        public ?DateObject $dateUpdated,
         public Cve $cve,
-        public ?string $title,
-        public ?string $shortName,
-        public ?string $orgId,
+        public ?string $product,
+        public ?string $vendor,
+        public ?string $defaultStatus,
         public ?string $key = null,
         public ?int $id = null
     ) {}
 
-    public static function fromEloquent(Adp $adp): Entity
+    public static function fromEloquent(AffectedProduct $product): Entity
     {
-        return new Entity(
-            dateUpdated: $adp->dateUpdated,
-            cve: $adp->cve,
-            title: $adp->title,
-            shortName: $adp->shortName,
-            orgId: $adp->orgId,
-            key: $adp->key,
-            id: $adp->id
-
+        return new self(
+            cve: $product->cveId,
+            product: $product->product,
+            vendor: $product->vendor,
+            defaultStatus: $product->defaultStatus,
+            key: $product->key,
+            id: $product->id,
         );
     }
 
     public function toArray(): array
     {
         return [
-            'title' => $this->title,
-            'dateUpdated' => $this->dateUpdated,
-            'cveId' => $this->cve->id,
-            'shortName' => $this->shortName,
-            'orgId' => $this->orgId,
+            FieldInterface::FIELD_CVE_ID => $this->cve->id,
+            FieldInterface::FIELD_PRODUCT => $this->product,
+            FieldInterface::FIELD_VENDOR => $this->vendor,
+            FieldInterface::FIELD_DEFAULT_STATUS => $this->defaultStatus,
         ];
     }
 }

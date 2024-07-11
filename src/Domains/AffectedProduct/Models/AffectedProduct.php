@@ -3,7 +3,9 @@
 namespace Domains\AffectedProduct\Models;
 
 use Domains\Cve\Models\Cve;
+use Domains\AffectedProduct\Observers\Observer;
 use Domains\Models\concerns\HasKey;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -16,6 +18,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string $vendor
  * @property string $defaultStatus
  */
+
+#[observedBy(Observer::class)]
 class AffectedProduct extends Model
 {
     use HasFactory, HasKey;
@@ -27,3 +31,4 @@ class AffectedProduct extends Model
         return $this->belongsTo(Cve::class, 'cveId', 'id');
     }
 }
+
