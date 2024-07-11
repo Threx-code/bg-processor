@@ -4,40 +4,38 @@ declare(strict_types=1);
 
 namespace Domains\VersionChange\Entities;
 
+use Domains\AffectedProduct\Models\AffectedProduct;
+use Domains\Helpers\Payloads\FieldInterface;
 use Domains\VersionChange\Models\VersionChange;
 use Infrastructures\Entities\DomainEntity;
 
 final class Entity extends DomainEntity
 {
     public function __construct(
-        public ?string $fileName,
-        public ?string $year,
+        public AffectedProduct $affectedProduct,
+        public ?string $at,
+        public ?string $status,
         public ?string $key = null,
         public ?int $id = null
     ) {}
 
-    /**
-     * @property int $id
-     * @property string $key
-     * @property string $fileName
-     * @property string $year
-     */
-
-    public static function fromEloquent(VersionChange $cveFileNames): Entity
+    public static function fromEloquent(VersionChange $change): Entity
     {
         return new self(
-            fileName: $cveFileNames->fileName,
-            year: $cveFileNames->year,
-            key: $cveFileNames->key,
-            id: $cveFileNames->id
+            affectedProduct: $change->affectedProductId,
+            at: $change->at,
+            status: $change->status,
+            key: $change->key,
+            id: $change->id
         );
     }
 
     public function toArray(): array
     {
         return [
-            'fileName' => $this->fileName,
-            'year' => $this->year,
+            FieldInterface::FIELD_AFFECTED_PRODUCT_ID => $this->affectedProduct->id,
+            FieldInterface::FIELD_AT => $this->at,
+            FieldInterface::FIELD_STATUS => $this->status,
         ];
     }
 }
