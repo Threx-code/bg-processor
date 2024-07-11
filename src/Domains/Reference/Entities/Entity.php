@@ -4,40 +4,35 @@ declare(strict_types=1);
 
 namespace Domains\Reference\Entities;
 
+use Domains\Cve\Models\Cve;
+use Domains\Helpers\Payloads\FieldInterface;
 use Domains\Reference\Models\Reference;
 use Infrastructures\Entities\DomainEntity;
 
 final class Entity extends DomainEntity
 {
     public function __construct(
-        public ?string $fileName,
-        public ?string $year,
+        public Cve $cve,
+        public ?string $url,
         public ?string $key = null,
         public ?int $id = null
     ) {}
 
-    /**
-     * @property int $id
-     * @property string $key
-     * @property string $fileName
-     * @property string $year
-     */
-
-    public static function fromEloquent(Reference $cveFileNames): Entity
+    public static function fromEloquent(Reference $reference): Entity
     {
         return new self(
-            fileName: $cveFileNames->fileName,
-            year: $cveFileNames->year,
-            key: $cveFileNames->key,
-            id: $cveFileNames->id
+            cve: $reference->cveId,
+            url: $reference->url,
+            key: $reference->key,
+            id: $reference->id
         );
     }
 
     public function toArray(): array
     {
         return [
-            'fileName' => $this->fileName,
-            'year' => $this->year,
+            FieldInterface::FIELD_CVE_ID => $this->cve->id,
+            FieldInterface::FIELD_URL => $this->url,
         ];
     }
 }

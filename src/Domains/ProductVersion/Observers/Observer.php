@@ -15,12 +15,12 @@ readonly class Observer
         private Dispatcher $event
     ) {}
 
-    public function created(ProductVersion $cveFileNames): void
+    public function created(ProductVersion $version): void
     {
         $this->event->dispatch(
             event: new Created(
                 entity: Entity::fromEloquent(
-                    cveFileNames: $cveFileNames
+                    version: $version
                 )
             )
         );
