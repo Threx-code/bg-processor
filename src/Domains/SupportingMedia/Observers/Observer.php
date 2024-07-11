@@ -15,12 +15,12 @@ readonly class Observer
         private Dispatcher $event
     ) {}
 
-    public function created(SupportingMedia $cveFileNames): void
+    public function created(SupportingMedia $supportingMedia): void
     {
         $this->event->dispatch(
             event: new Created(
                 entity: Entity::fromEloquent(
-                    cveFileNames: $cveFileNames
+                    supportingMedia: $supportingMedia
                 )
             )
         );
