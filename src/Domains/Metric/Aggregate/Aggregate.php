@@ -2,6 +2,6 @@
 
 declare(strict_types=1);
 
-namespace Domains\CveFileNames\Aggregate;
+namespace Domains\Metric\Aggregate;
 
 final readonly class Aggregate {}

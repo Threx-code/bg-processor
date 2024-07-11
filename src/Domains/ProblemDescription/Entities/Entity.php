@@ -2,42 +2,48 @@
 
 declare(strict_types=1);
 
-namespace Domains\CveFileNames\Entities;
+namespace Domains\ProblemDescription\Entities;
 
 use Domains\CveFileNames\Models\CveFileNames;
+use Domains\Helpers\Payloads\FieldInterface;
+use Domains\ProblemDescription\Models\ProblemDescription;
+use Domains\ProblemType\Models\ProblemType;
 use Infrastructures\Entities\DomainEntity;
 
 final class Entity extends DomainEntity
 {
     public function __construct(
-        public ?string $fileName,
-        public ?string $year,
+        public ProblemType $problemType,
+        public ?string $cweId,
+        public ?string $lang,
+        public ?string $type,
+        public ?string $description,
         public ?string $key = null,
         public ?int $id = null
     ) {}
 
-    /**
-     * @property int $id
-     * @property string $key
-     * @property string $fileName
-     * @property string $year
-     */
 
-    public static function fromEloquent(CveFileNames $cveFileNames): Entity
+    public static function fromEloquent(ProblemDescription $description): Entity
     {
         return new self(
-            fileName: $cveFileNames->fileName,
-            year: $cveFileNames->year,
-            key: $cveFileNames->key,
-            id: $cveFileNames->id
+            problemType: $description->problemTypeId,
+            cweId: $description->cweId,
+            lang: $description->lang,
+            type: $description->type,
+            description: $description->description,
+            key: $description->key,
+            id: $description->id
         );
     }
 
     public function toArray(): array
     {
         return [
-            'fileName' => $this->fileName,
-            'year' => $this->year,
+            FieldInterface::FIELD_PROBLEM_TYPE_ID => $this->problemType->id,
+            FieldInterface::FIELD_CWE_ID => $this->cweId,
+            FieldInterface::FIELD_LANG => $this->lang,
+            FieldInterface::FIELD_TYPE => $this->type,
+            FieldInterface::FIELD_DESCRIPTION => $this->description
         ];
     }
 }

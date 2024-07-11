@@ -2,6 +2,6 @@
 
 declare(strict_types=1);
 
-namespace Domains\CveFileNames\Aggregate;
+namespace Domains\Platform\Aggregate;
 
 final readonly class Aggregate {}

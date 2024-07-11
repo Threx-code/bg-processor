@@ -64,4 +64,5 @@ interface FieldInterface
     const FIELD_TIME = 'time';
     const FIELD_ENGINE = 'engine';
     const FIELD_SHORT_NAME = 'shortName';
+    const FIELD_CWE_ID = 'cweId';
 }

@@ -10,8 +10,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @property int $id
- * @property AffectedProduct $key
- * @property int $affectedProductId
+ * @property  string $key
+ * @property AffectedProduct $affectedProductId
  * @property string $platform
  */
 class Platform extends Model

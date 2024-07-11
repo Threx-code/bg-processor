@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Domains\CveFileNames\Events;
+namespace Domains\ProblemDescription\Events;
 
-use Domains\CveFileNames\Entities\Entity;
+use Domains\ProblemDescription\Entities\Entity;
 use Infrastructures\Events\DomainEvent;
 
 final class Created extends DomainEvent

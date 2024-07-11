@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Domains\CveFileNames\Repositories;
+namespace Domains\Metric\Repositories;
 
 use Infrastructures\Repositories\Repository as BaseRepository;
 
