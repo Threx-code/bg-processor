@@ -4,40 +4,35 @@ declare(strict_types=1);
 
 namespace Domains\XGenerator\Entities;
 
+use Domains\Cve\Models\Cve;
+use Domains\Helpers\Payloads\FieldInterface;
 use Domains\XGenerator\Models\XGenerator;
 use Infrastructures\Entities\DomainEntity;
 
 final class Entity extends DomainEntity
 {
     public function __construct(
-        public ?string $fileName,
-        public ?string $year,
+        public Cve $cve,
+        public ?string $engine,
         public ?string $key = null,
         public ?int $id = null
     ) {}
 
-    /**
-     * @property int $id
-     * @property string $key
-     * @property string $fileName
-     * @property string $year
-     */
-
-    public static function fromEloquent(XGenerator $cveFileNames): Entity
+    public static function fromEloquent(XGenerator $generator): Entity
     {
         return new self(
-            fileName: $cveFileNames->fileName,
-            year: $cveFileNames->year,
-            key: $cveFileNames->key,
-            id: $cveFileNames->id
+            cve: $generator->cveId,
+            engine: $generator->engine,
+            key: $generator->key,
+            id: $generator->id
         );
     }
 
     public function toArray(): array
     {
         return [
-            'fileName' => $this->fileName,
-            'year' => $this->year,
+            FieldInterface::FIELD_CVE_ID => $this->cve->id,
+            FieldInterface::FIELD_ENGINE => $this->engine,
         ];
     }
 }

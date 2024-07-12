@@ -15,12 +15,12 @@ readonly class Observer
         private Dispatcher $event
     ) {}
 
-    public function created(XGenerator $cveFileNames): void
+    public function created(XGenerator $generator): void
     {
         $this->event->dispatch(
             event: new Created(
                 entity: Entity::fromEloquent(
-                    cveFileNames: $cveFileNames
+                    generator: $generator
                 )
             )
         );
