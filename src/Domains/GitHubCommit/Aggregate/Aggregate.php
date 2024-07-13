@@ -2,6 +2,6 @@
 
 declare(strict_types=1);
 
-namespace Domains\GitHub\Aggregate;
+namespace Domains\GitHubCommit\Aggregate;
 
 final readonly class Aggregate {}

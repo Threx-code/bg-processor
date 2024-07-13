@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Domains\GitHub\Models;
+namespace Domains\GitHubCommit\Models;
 
-use Domains\GitHub\Observers\Observer as GitHubCommitObserver;
+use Domains\GitHubCommit\Observers\Observer as GitHubCommitObserver;
 use Domains\Helpers\Casts\Date;
 use Domains\Helpers\Payloads\FieldInterface;
 use Domains\Helpers\ValueObjects\DateObject;

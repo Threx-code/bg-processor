@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Domains\GitHub\Repositories;
+namespace Domains\GitHubCommit\Repositories;
 
 use Infrastructures\Repositories\Repository as BaseRepository;
 

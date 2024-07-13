@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Domains\Adp\Services;
 
-use Domains\Credit\Entities\Entity;
+use Domains\Adp\Entities\Entity;
 use Domains\Adp\Models\Adp;
 use Illuminate\Database\Eloquent\Model;
 use Infrastructures\Exceptions\ModelValidator;

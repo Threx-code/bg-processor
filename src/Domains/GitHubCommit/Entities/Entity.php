@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Domains\GitHub\Entities;
+namespace Domains\GitHubCommit\Entities;
 
-use Domains\GitHub\Models\GithubCommit;
+use Domains\GitHubCommit\Models\GithubCommit;
 use Domains\Helpers\Payloads\FieldInterface;
 use Domains\Helpers\ValueObjects\DateObject;
 use Infrastructures\Entities\DomainEntity;

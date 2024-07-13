@@ -2,17 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Domains\GitHub\Services;
+namespace Domains\GitHubCommit\Services;
 
-use Domains\GitHub\Entities\Entity;
-use Domains\GitHub\Models\GithubCommit;
+use Domains\GitHubCommit\Entities\Entity;
+use Domains\GitHubCommit\Models\GithubCommit;
+use Infrastructures\Entities\DomainEntity;
 use Infrastructures\Exceptions\ModelValidator;
 use Infrastructures\Services\BaseService;
 use Illuminate\Database\Eloquent\Model;
 
 final class Service extends BaseService
 {
-    protected function mapToEntity(Model $model): Entity
+    protected function mapToEntity(Model $model): DomainEntity
     {
         ModelValidator::validate(model: $model, expectedModel: GithubCommit::class);
 

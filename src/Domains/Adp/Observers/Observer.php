@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Domains\Adp\Observers;
 
-use Domains\Credit\Entities\Entity;
-use Domains\Credit\Events\Created;
+use Domains\Adp\Entities\Entity;
+use Domains\Adp\Events\Created;
 use Domains\Adp\Models\Adp;
 use Illuminate\Events\Dispatcher;
 

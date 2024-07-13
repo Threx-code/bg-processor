@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Domains\GitHub\Observers;
+namespace Domains\GitHubCommit\Observers;
 
-use Domains\GitHub\Entities\Entity;
-use Domains\GitHub\Events\Created;
-use Domains\GitHub\Models\GithubCommit;
+use Domains\GitHubCommit\Entities\Entity;
+use Domains\GitHubCommit\Events\Created;
+use Domains\GitHubCommit\Models\GithubCommit;
 use Illuminate\Events\Dispatcher;
 
 readonly class Observer

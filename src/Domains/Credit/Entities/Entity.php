@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace Domains\Credit\Entities;
 
-use Domains\Adp\Models\Adp;
 use Domains\Credit\Models\Credit;
 use Domains\Cve\Models\Cve;
 use Domains\Helpers\Payloads\FieldInterface;
-use Domains\Helpers\ValueObjects\DateObject;
 use Infrastructures\Entities\DomainEntity;
 
 final class Entity extends DomainEntity

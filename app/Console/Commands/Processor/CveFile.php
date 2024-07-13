@@ -2,25 +2,23 @@
 
 declare(strict_types=1);
 
-namespace App\Console\Commands\Github;
+namespace App\Console\Commands\Processor;
 
+use App\Console\Commands\CLIInterface;
 use App\Helpers\StringToDate;
-use App\Services\RequestClient;
-use App\Services\RequestClientPayload;
 use Carbon\Carbon;
-use Domains\GitHub\Entities\Entity;
-use Domains\GitHub\Models\GithubCommit;
-use Domains\GitHub\Repositories\Repository;
-use Domains\GitHub\Services\Service;
+use Domains\GitHubCommit\Entities\Entity;
+use Domains\GitHubCommit\Models\GithubCommit;
+use Domains\GitHubCommit\Repositories\Repository;
+use Domains\GitHubCommit\Services\Service;
 use Domains\Helpers\ValueObjects\DateObject;
-use GuzzleHttp\Client;
 use Illuminate\Console\Command;
 use Illuminate\Database\DatabaseManager;
 use Illuminate\Support\Collection;
 use JsonException;
 use Throwable;
 
-class CveListV5GithubUpstream extends Command
+class CveFile extends Command
 {
     const DATE_FORMAT = 'Y-m-d H:i:s';
 
@@ -29,14 +27,14 @@ class CveListV5GithubUpstream extends Command
      *
      * @var string
      */
-    protected $signature = 'pull:upstream';
+    protected $signature = 'process:cve';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'This command pulls from the upstream repository for the cve list v5.';
+    protected $description = 'Command to process cve files and save them to the database.';
 
     /**
      * Execute the console command.
@@ -44,21 +42,10 @@ class CveListV5GithubUpstream extends Command
      * @throws JsonException
      * @throws Throwable
      */
-    public function handle(): void
+    public function handle()
     {
-        $sendRequest = new RequestClient(
-            request: new RequestClientPayload(
-                payload: [],
-                method: 'GET',
-                url: env('CVE_LIST_REPO_COMMIT_URL'),
-                client: new Client(['verify' => true]),
-                headers: [
-                    'Content-Type' => 'application/json',
-                    'Accept: application/json',
-                    'Authorization' => '',
-                ]
-            )
-        );
+        $filePath = app_path(path: CLIInterface::COMMIT_JSON_FILE_PATH);
+
         $response = $sendRequest->send()->response();
         $response = json_decode($response, true, 512, JSON_THROW_ON_ERROR);
         $commitDate = StringToDate::format(
@@ -68,25 +55,22 @@ class CveListV5GithubUpstream extends Command
 
         $commits = $this->service()->all();
 
+        print_r($commits);
+
         $checkCommitData = $commits->first();
 
         $dateFromDb = ! empty($commits->first()) ?
             $checkCommitData->commitDate->date->format(self::DATE_FORMAT) : null;
 
-        if ($commitDate !== $dateFromDb) {
-            $dir = dirname(__DIR__, 2);
-            $script = $dir.'/scripts/pull-repo.sh';
-            $output = shell_exec("sh {$script}");
+        //if ($commitDate !== $dateFromDb) {
 
-            $this->info($output);
-            $this->info($output);
-        }
+        // }
 
-        if (! empty($checkCommitData->key) && $commitDate !== $dateFromDb) {
-            $this->update($commits, $commitDate);
-        } elseif (empty($checkCommitData->key)) {
-            $this->insert($commitDate);
-        }
+        //        if (! empty($checkCommitData->key) && $commitDate !== $dateFromDb) {
+        //            $this->update($commits, $commitDate);
+        //        } elseif (empty($checkCommitData->key)) {
+        //            $this->insert($commitDate);
+        //        }
 
         $this->info('Command completed successfully');
     }
