@@ -8,7 +8,7 @@ interface CLIInterface
 {
     const DATE_FORMAT = 'Y-m-d H:i:s';
 
-    const COMMIT_JSON_FILE_PATH = 'Console/Commands/Files/commit.json';
+    const COMMIT_JSON_FILE_PATH = 'Console/Commands/Files/Commit/date.json';
 
     const LAST_COMMIT_DATE = 'last_commit_date';
     const REPOSITORY_URL = 'CVE_LIST_REPO_COMMIT_URL';
