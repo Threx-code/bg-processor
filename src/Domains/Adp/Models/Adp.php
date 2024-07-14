@@ -40,7 +40,7 @@ class Adp extends Model
         ];
     }
 
-    public function cveId(): BelongsTo
+    public function cve(): BelongsTo
     {
         return $this->belongsTo(
             related: Cve::class,
@@ -49,7 +49,7 @@ class Adp extends Model
         );
     }
 
-    public function adpMetrics(): HasMany
+    public function adpMetric(): HasMany
     {
         return $this->hasMany(
             related: AdpMetric::class,

@@ -4,9 +4,11 @@ namespace Domains\Description\Models;
 
 use Domains\Cve\Models\Cve;
 use Domains\Models\concerns\HasKey;
+use Domains\SupportingMedia\Models\SupportingMedia;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property int $id
@@ -24,6 +26,12 @@ class Description extends Model
     {
         return $this->belongsTo(Cve::class, 'cveId', 'id');
     }
+
+    public function supportingMedia(): HasMany
+    {
+        return $this->hasMany(SupportingMedia::class, 'descriptionId', 'id');
+    }
+
     protected function casts(): array
     {
         return [

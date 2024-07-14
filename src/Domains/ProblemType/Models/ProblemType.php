@@ -4,9 +4,11 @@ namespace Domains\ProblemType\Models;
 
 use Domains\Cve\Models\Cve;
 use Domains\Models\concerns\HasKey;
+use Domains\ProblemDescription\Models\ProblemDescription;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property int $id
@@ -17,7 +19,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string $lang
  * @property string $type
  */
-
 class ProblemType extends Model
 {
     use HasFactory, HasKey;
@@ -27,6 +28,11 @@ class ProblemType extends Model
     public function cve(): BelongsTo
     {
         return $this->belongsTo(Cve::class, 'cveId', 'id');
+    }
+
+    public function problemDescription(): HasMany
+    {
+        return $this->hasMany(ProblemDescription::class, 'problemTypeId', 'id');
     }
 
     protected function casts(): array
