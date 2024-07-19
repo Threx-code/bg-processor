@@ -35,19 +35,20 @@ abstract class BaseService
 
     /**
      * @param DomainEntity $entity
-     * @return void
-     * @throws Throwable
+     * @return DomainEntity
      */
-    public function create(DomainEntity $entity): void
+    public function create(DomainEntity $entity): DomainEntity
     {
-        $this->repository->create(entity: $entity);
+        return $this->repository->create(entity: $entity);
     }
 
     /**
-     * @throws Throwable
+     * @param string $key
+     * @param DomainEntity $entity
+     * @return DomainEntity
      */
-    public function update(string $key, DomainEntity $entity): void
+    public function update(string $key, DomainEntity $entity): DomainEntity
     {
-        $this->repository->update(key: $key, entity: $entity);
+        return $this->repository->update(key: $key, entity: $entity);
     }
 }

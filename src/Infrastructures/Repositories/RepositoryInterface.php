@@ -19,9 +19,9 @@ interface RepositoryInterface
 
     public function find(int|string $key, array $with = []): ?object;
 
-    public function create(DomainEntity $entity): void;
+    public function create(DomainEntity $entity): DomainEntity;
 
-    public function update(int|string $key, DomainEntity $entity): void;
+    public function update(int|string $key, DomainEntity $entity): DomainEntity;
 
     public function delete(int|string $key): void;
 }
