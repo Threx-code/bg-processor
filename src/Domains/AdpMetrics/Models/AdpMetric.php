@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace Domains\AdpMetrics\Models;
 
 use Domains\Adp\Models\Adp;
+use Domains\AdpMetrics\Observers\Observer as AdpMetricObserver;
 use Domains\Helpers\Casts\Date;
 use Domains\Helpers\ValueObjects\DateObject;
 use Domains\Models\concerns\HasKey;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -25,6 +27,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string $version
  * @property DateObject $date
  */
+#[ObservedBy(AdpMetricObserver::class)]
 class AdpMetric extends Model
 {
     use HasFactory, HasKey;

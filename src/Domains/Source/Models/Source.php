@@ -1,9 +1,11 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Domains\Source\Models;
 
 use Domains\Cve\Models\Cve;
 use Domains\Models\concerns\HasKey;
+use Domains\Source\Observers\Observer as SourceObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -15,6 +17,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string $defect
  * @property string $discovery
  */
+
+#[ObservedBy(SourceObserver::class)]
 class Source extends Model
 {
     use HasFactory, HasKey;

@@ -8,7 +8,7 @@ use Domains\Adp\Models\Adp;
 use Domains\AdpMetrics\Models\AdpMetric;
 use Domains\AffectedProduct\Models\AffectedProduct;
 use Domains\Credit\Models\Credit;
-use Domains\Cve\Observers\Observer;
+use Domains\Cve\Observers\Observer as CVeObserver;
 use Domains\CvssV3\Models\CvssV3;
 use Domains\Description\Models\Description;
 use Domains\Exploit\Models\Exploit;
@@ -47,7 +47,7 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
  * @property DateObject $datePublished
  * @property DateObject $dateUpdated
  */
-#[ObservedBy(Observer::class)]
+#[ObservedBy(CVeObserver::class)]
 class Cve extends Model
 {
     use HasFactory, HasKey;

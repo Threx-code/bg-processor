@@ -1,8 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Domains\AffectedProduct\Models;
 
-use Domains\AffectedProduct\Observers\Observer;
+use Domains\AffectedProduct\Observers\Observer as AffectedProductObserver;
 use Domains\Cve\Models\Cve;
 use Domains\Models\concerns\HasKey;
 use Domains\Platform\Models\Platform;
@@ -22,7 +22,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string $vendor
  * @property string $defaultStatus
  */
-#[observedBy(Observer::class)]
+#[observedBy(AffectedProductObserver::class)]
 class AffectedProduct extends Model
 {
     use HasFactory, HasKey;

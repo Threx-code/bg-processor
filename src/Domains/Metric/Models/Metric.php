@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Domains\Metric\Models;
 
@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Domains\Metric\Observers\Observer as MetricObserver;
 
 /**
  * @property int $id
@@ -17,6 +19,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property Cve $cveId
  * @property string $format
  */
+
+#[ObservedBy(MetricObserver::class)]
 class Metric extends Model
 {
     use HasFactory, HasKey;

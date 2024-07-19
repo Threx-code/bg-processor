@@ -1,10 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Domains\ProblemType\Models;
 
 use Domains\Cve\Models\Cve;
 use Domains\Models\concerns\HasKey;
 use Domains\ProblemDescription\Models\ProblemDescription;
+use Domains\ProblemType\Observers\Observer as ProblemTypeObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -19,6 +23,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string $lang
  * @property string $type
  */
+#[ObservedBy(ProblemTypeObserver::class)]
 class ProblemType extends Model
 {
     use HasFactory, HasKey;

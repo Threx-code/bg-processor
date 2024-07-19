@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Domains\Adp\Models;
 
-use Domains\Adp\Observers\Observer;
+use Domains\Adp\Observers\Observer as AdpObserver;
 use Domains\AdpMetrics\Models\AdpMetric;
 use Domains\Cve\Models\Cve;
 use Domains\Helpers\Casts\Date;
@@ -25,7 +25,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property DateObject $dateUpdated
  * @property Cve cveId
  */
-#[observedBy(Observer::class)]
+#[observedBy(AdpObserver::class)]
 class Adp extends Model
 {
     use HasFactory, HasKey;

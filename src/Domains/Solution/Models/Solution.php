@@ -1,10 +1,12 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Domains\Solution\Models;
 
 use Domains\Cve\Models\Cve;
 use Domains\Models\concerns\HasKey;
+use Domains\Solution\Observers\Observer as SolutionObserver;
 use Domains\SolutionSupportingMedia\Models\SolutionSupportingMedia;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -17,6 +19,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string $lang
  * @property string $value
  */
+
+#[ObservedBy(SolutionObserver::class)]
 class Solution extends Model
 {
     use HasFactory, HasKey;

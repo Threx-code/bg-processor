@@ -1,9 +1,11 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Domains\Credit\Models;
 
+use Domains\Credit\Observers\Observer as CreditObserver;
 use Domains\Cve\Models\Cve;
 use Domains\Models\concerns\HasKey;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -16,6 +18,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string $type
  * @property string $value
  */
+#[ObservedBy(CreditObserver::class)]
 class Credit extends Model
 {
     use HasFactory, HasKey;

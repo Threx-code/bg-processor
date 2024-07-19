@@ -20,7 +20,6 @@ final class Entity extends DomainEntity
         public ?int $id = null
     ) {}
 
-
     public static function fromEloquent(Credit $credit): Entity
     {
         return new self(
@@ -39,7 +38,7 @@ final class Entity extends DomainEntity
             FieldInterface::FIELD_CVE_ID => $this->cve->id,
             FieldInterface::FIELD_LANG => $this->lang,
             FieldInterface::FIELD_TYPE => $this->type,
-            FieldInterface::FIELD_VALUE => $this->value
+            FieldInterface::FIELD_VALUE => $this->value,
         ];
     }
 }

@@ -1,9 +1,11 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Domains\CvssV3\Models;
 
+use Domains\CvssV3\Observers\Observer as CvssV3Observer;
 use Domains\Metric\Models\Metric;
 use Domains\Models\concerns\HasKey;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -25,6 +27,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string $vectorString
  * @property string $version
  */
+#[ObservedBy(CvssV3Observer::class)]
 class CvssV3 extends Model
 {
     use HasFactory, HasKey;
