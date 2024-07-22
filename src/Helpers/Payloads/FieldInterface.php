@@ -66,7 +66,7 @@ interface FieldInterface
 
     const FIELD_NULL = null;
     const FIELD_AFFECTED_PRODUCT = 'affectedProduct';
-    const FIELD_CVE_META_DATE = 'cveMetadata';
+    const FIELD_CVE_META_DATA = 'cveMetadata';
     const FIELD_CONTAINERS = 'containers';
     const FIELD_CNA = 'cna';
     const FIELD_AFFECTED = 'affected';
@@ -80,5 +80,6 @@ interface FieldInterface
     const FIELD_VENDOR = 'vendor';
     const FIELD_CHANGES = 'changes';
     const FIELD_PRODUCT_VERSION = 'productVersion';
+    const CVE_REJECTED = 'REJECTED';
 
 }

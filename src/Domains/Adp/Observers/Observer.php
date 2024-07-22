@@ -19,7 +19,7 @@ readonly class Observer
     {
         $this->event->dispatch(
             event: new Created(
-                commit: Entity::fromEloquent(
+                entity: Entity::fromEloquent(
                     adp: $adp
                 )
             )

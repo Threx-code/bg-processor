@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Domains\Adp\Events;
+namespace Domains\RejectedReason\Events;
 
-use Domains\Adp\Entities\Entity;
+use Domains\RejectedReason\Entities\Entity;
 use Infrastructures\Events\DomainEvent;
 
 final class Created extends DomainEvent
 {
     public function __construct(
-        public readonly Entity $entity
+        public readonly Entity $rejectedReason
     ) {}
 }
