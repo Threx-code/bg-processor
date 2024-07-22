@@ -56,7 +56,10 @@ class CveFile extends Command
             $commitData->commitDate->date->format(self::DATE_FORMAT) : null;
 
         if ($commitDate !== $dateFromDb) {
-            $commitInserted = (! empty($checkCommitData->key)) ? $this->update($commits, $commitDate) : $this->insert($commitDate);
+            $directory = dirname(__FILE__, 5).CLIInterface::CVE_REPOSITORY_PATH;
+            (new FileProcessor())->directory($directory);
+
+            //$commitInserted = (! empty($checkCommitData->key)) ? $this->update($commits, $commitDate) : $this->insert($commitDate);
         }
 
         $this->info(CLIInterface::COMMAND_COMPLETED_MESSAGE);

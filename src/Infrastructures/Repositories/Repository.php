@@ -17,9 +17,6 @@ abstract class Repository implements RepositoryInterface
         private readonly DatabaseManager $database
     ) {}
 
-    /**
-     * @return Collection
-     */
     public function all(): Collection
     {
         return $this->query->get();
@@ -36,12 +33,12 @@ abstract class Repository implements RepositoryInterface
 
     /**
      * @param DomainEntity $entity
-     * @return void
+     * @return DomainEntity
      * @throws Throwable
      */
-    public function create(DomainEntity $entity): void
+    public function create(DomainEntity $entity): DomainEntity
     {
-        $this->database->transaction(
+        return $this->database->transaction(
             callback: fn () => $this->query->create(
                 attributes: $entity->toArray()
             ),
@@ -52,12 +49,12 @@ abstract class Repository implements RepositoryInterface
     /**
      * @param string|int $key
      * @param DomainEntity $entity
-     * @return void
+     * @return DomainEntity
      * @throws Throwable
      */
-    public function update(string|int $key, DomainEntity $entity): void
+    public function update(string|int $key, DomainEntity $entity): DomainEntity
     {
-        $this->database->transaction(
+        return $this->database->transaction(
             callback: function () use ($key, $entity) {
                 $this->query->where('key', $key)->first()->update($entity->toArray());
             },
@@ -66,8 +63,6 @@ abstract class Repository implements RepositoryInterface
     }
 
     /**
-     * @param string|int $key
-     * @return void
      * @throws Throwable
      */
     public function delete(string|int $key): void
