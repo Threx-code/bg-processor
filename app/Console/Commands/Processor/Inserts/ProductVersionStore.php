@@ -23,12 +23,11 @@ class ProductVersionStore extends BaseInsert
 
         return $service->create(
             entity: new ProductVersionEntity(
-                affectedProduct: $this->data[FieldInterface::FIELD_AFFECTED_PRODUCT],
+                affectedProductId: $this->data[FieldInterface::FIELD_AFFECTED_PRODUCT_ID],
                 version: $this->data[FieldInterface::FIELD_VERSION] ?? FieldInterface::FIELD_NULL,
                 lessThan: $this->data[FieldInterface::FIELD_LESS_THAN] ?? FieldInterface::FIELD_NULL,
                 status: $this->data[FieldInterface::FIELD_STATUS] ?? FieldInterface::FIELD_NULL,
-                versionType: $this->data[FieldInterface::FIELD_VERSION_TYPE] ?? FieldInterface::FIELD_NULL,
-                year: $this->data[FieldInterface::FIELD_YEAR] ?? FieldInterface::FIELD_NULL
+                versionType: $this->data[FieldInterface::FIELD_VERSION_TYPE] ?? FieldInterface::FIELD_NULL
             )
         );
     }

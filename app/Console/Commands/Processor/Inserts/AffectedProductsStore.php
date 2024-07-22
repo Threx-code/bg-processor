@@ -24,7 +24,7 @@ class AffectedProductsStore extends BaseInsert
             )
         )->create(
             entity: new AffectedProductEntity(
-                cve: $this->data[FieldInterface::FIELD_CVE],
+                cveId: $this->data[FieldInterface::FIELD_CVE_ID],
                 product: $this->data[FieldInterface::FIELD_PRODUCT] ?? FieldInterface::FIELD_NULL,
                 vendor: $this->data[FieldInterface::FIELD_VENDOR] ?? FieldInterface::FIELD_NULL,
                 defaultStatus: $this->data[FieldInterface::FIELD_DEFAULT_STATUS] ?? FieldInterface::FIELD_NULL

@@ -36,37 +36,37 @@ final readonly class FileProcessor
     {
         $data = file_get_contents($file);
         $data = json_decode($data, true);
-        $cveModel = (new CveStore($data[FieldInterface::FIELD_CVE_META_DATE]))->process();
+        $cveId = (new CveStore($data[FieldInterface::FIELD_CVE_META_DATE]))->process()->id;
 
         $affectedProducts = $data[FieldInterface::FIELD_CONTAINERS][FieldInterface::FIELD_CNA][FieldInterface::FIELD_AFFECTED];
         if(!empty($affectedProducts)) {
             foreach ($affectedProducts as $product) {
-                $product[FieldInterface::FIELD_CVE] = $cveModel;
-                $affectedModel = (new AffectedProductsStore($product))->process();
+                $product[FieldInterface::FIELD_CVE_ID] = $cveId;
+                $affectedProductId = (new AffectedProductsStore($product))->process()->id;
 
-//                $platforms = $product[FieldInterface::FIELD_PLATFORMS]  ?? FieldInterface::FIELD_NULL;
-//                if (!empty($platforms)) {
-//                    foreach ($platforms as $platform) {
-//                        $platform[FieldInterface::FIELD_AFFECTED_PRODUCT] = $affectedModel;
-//                        (new PlatformStore($platform))->process();
-//                    }
-//                }
-                // insert version
-//                $productVersions = $product[FieldInterface::FIELD_VERSIONS] ?? FieldInterface::FIELD_NULL;
-//                if(!empty($productVersions)) {
-//                    foreach ($productVersions as $version) {
-//                        $version[FieldInterface::FIELD_AFFECTED_PRODUCT] = $affectedModel;
-//                        $versionModel = (new ProductVersionStore($version))->process();
-//
-//                        $changes = $version[FieldInterface::FIELD_CHANGES] ?? FieldInterface::FIELD_NULL;
-//                        if (!empty($changes)) {
-//                            foreach ($changes as $change) {
-//                                $changes[FieldInterface::FIELD_PRODUCT_VERSION] = $versionModel;
-//                                (new VersionChangeStore($change))->process();
-//                              }
-//                        }
-//                    }
-//                }
+                $platforms = $product[FieldInterface::FIELD_PLATFORMS]  ?? FieldInterface::FIELD_NULL;
+                if (!empty($platforms)) {
+                    foreach ($platforms as $platform) {
+                        $platform[FieldInterface::FIELD_AFFECTED_PRODUCT_ID] = $affectedProductId;
+                        (new PlatformStore($platform))->process();
+                    }
+                }
+
+                $productVersions = $product[FieldInterface::FIELD_VERSIONS] ?? FieldInterface::FIELD_NULL;
+                if(!empty($productVersions)) {
+                    foreach ($productVersions as $version) {
+                        $version[FieldInterface::FIELD_AFFECTED_PRODUCT_ID] = $affectedProductId;
+                        $versionId = (new ProductVersionStore($version))->process();
+
+                        $changes = $version[FieldInterface::FIELD_CHANGES] ?? FieldInterface::FIELD_NULL;
+                        if (!empty($changes)) {
+                            foreach ($changes as $change) {
+                                $changes[FieldInterface::FIELD_PRODUCT_VERSION] = $versionId;
+                                (new VersionChangeStore($change))->process();
+                              }
+                        }
+                    }
+                }
 
 
             }

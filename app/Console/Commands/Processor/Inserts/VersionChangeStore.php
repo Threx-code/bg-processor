@@ -24,7 +24,7 @@ class VersionChangeStore extends BaseInsert
 
         return $service->create(
             entity: new VersionChangeEntity(
-                productVersion: $this->data[FieldInterface::FIELD_PRODUCT_VERSION_ID],
+                productVersionId: $this->data[FieldInterface::FIELD_PRODUCT_VERSION_ID],
                 at: $this->data[FieldInterface::FIELD_AT] ?? FieldInterface::FIELD_NULL,
                 status: $this->data[FieldInterface::FIELD_STATUS] ?? FieldInterface::FIELD_NULL
             )

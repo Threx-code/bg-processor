@@ -21,7 +21,7 @@ class PlatformStore extends BaseInsert
             )
         ))->create(
             entity: new PlatformEntity(
-                affectedProduct: $this->data[FieldInterface::FIELD_AFFECTED_PRODUCT],
+                affectedProductId: $this->data[FieldInterface::FIELD_AFFECTED_PRODUCT_ID],
                 platform: $this->data[FieldInterface::FIELD_PLATFORM] ?? FieldInterface::FIELD_NULL
             )
         );

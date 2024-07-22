@@ -17,7 +17,6 @@ final class Entity extends DomainEntity
         public ?string $lessThan,
         public ?string $status,
         public ?string $versionType,
-        public ?string $year,
         public ?string $key = null,
         public ?int $id = null
     ) {}
@@ -30,7 +29,6 @@ final class Entity extends DomainEntity
             lessThan: $version->lessThan,
             status: $version->status,
             versionType: $version->versionType,
-            year: $version->year,
             key: $version->key,
             id: $version->id
         );
@@ -43,8 +41,7 @@ final class Entity extends DomainEntity
             FieldInterface::FIELD_VERSION => $this->version,
             FieldInterface::FIELD_LESS_THAN => $this->lessThan,
             FieldInterface::FIELD_STATUS => $this->status,
-            FieldInterface::FIELD_VERSION_TYPE => $this->versionType,
-            FieldInterface::FIELD_YEAR => $this->year,
+            FieldInterface::FIELD_VERSION_TYPE => $this->versionType
         ];
     }
 }
