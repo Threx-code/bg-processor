@@ -13,7 +13,7 @@ use Domains\ProductVersion\Observers\Observer as ProductVersionObserver;
 /**
  * @property int $id
  * @property string $key
- * @property AffectedProduct $affectedProductId
+ * @property int $affectedProductId
  * @property string $version
  * @property string $lessThan
  * @property string $status
@@ -30,13 +30,6 @@ class ProductVersion extends Model
     public function affectedProduct(): BelongsTo
     {
         return $this->belongsTo(AffectedProduct::class, 'affectedProductId', 'id');
-    }
-
-    protected function casts(): array
-    {
-        return [
-            'affectedProductId' => AffectedProduct::class,
-        ];
     }
 }
 

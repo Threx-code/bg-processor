@@ -12,7 +12,7 @@ use Infrastructures\Entities\DomainEntity;
 final class Entity extends DomainEntity
 {
     public function __construct(
-        public Solution $solution,
+        public int $solutionId,
         public ?bool $base64,
         public ?string $type,
         public ?string $value,
@@ -23,7 +23,7 @@ final class Entity extends DomainEntity
     public static function fromEloquent(SolutionSupportingMedia $supportingMedia): Entity
     {
         return new self(
-            solution: $supportingMedia->solutionId,
+            solutionId: $supportingMedia->solutionId,
             base64: $supportingMedia->base64,
             type: $supportingMedia->type,
             value: $supportingMedia->value,
@@ -35,7 +35,7 @@ final class Entity extends DomainEntity
     public function toArray(): array
     {
         return [
-            FieldInterface::FIELD_SOLUTION_ID => $this->solution->id,
+            FieldInterface::FIELD_SOLUTION_ID => $this->solutionId,
             FieldInterface::FIELD_BASE64 => $this->base64,
             FieldInterface::FIELD_TYPE => $this->type,
             FieldInterface::FIELD_VALUE => $this->value,

@@ -13,7 +13,7 @@ use Infrastructures\Entities\DomainEntity;
 final class Entity extends DomainEntity
 {
     public function __construct(
-        public AffectedProduct $affectedProduct,
+        public int $affectedProductId,
         public ?string $platform,
         public ?string $key = null,
         public ?int $id = null
@@ -22,7 +22,7 @@ final class Entity extends DomainEntity
     public static function fromEloquent(Platform $platform): Entity
     {
         return new self(
-            affectedProduct: $platform->affectedProductId,
+            affectedProductId: $platform->affectedProductId,
             platform: $platform->platform,
             key: $platform->key,
             id: $platform->id
@@ -32,7 +32,7 @@ final class Entity extends DomainEntity
     public function toArray(): array
     {
         return [
-            FieldInterface::FIELD_AFFECTED_PRODUCT_ID => $this->affectedProduct->id,
+            FieldInterface::FIELD_AFFECTED_PRODUCT_ID => $this->affectedProductId,
             FieldInterface::FIELD_PLATFORM => $this->platform,
         ];
     }

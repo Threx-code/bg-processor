@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 /**
  * @property int $id
  * @property string $key
- * @property Metric $metricId
+ * @property int $metricId
  * @property string $lang
  * @property string $value
  */
@@ -30,10 +30,4 @@ class Scenario extends Model
         return $this->belongsTo(Metric::class, 'metricId', 'id');
     }
 
-    protected function casts(): array
-    {
-        return [
-            'metricId' => Metric::class,
-        ];
-    }
 }

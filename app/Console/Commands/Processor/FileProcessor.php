@@ -8,6 +8,7 @@ use App\Console\Commands\Processor\Inserts\AffectedProductsStore;
 use App\Console\Commands\Processor\Inserts\CveStore;
 use App\Console\Commands\Processor\Inserts\PlatformStore;
 use App\Console\Commands\Processor\Inserts\ProductVersionStore;
+use App\Console\Commands\Processor\Inserts\VersionChangeStore;
 use Domains\Helpers\Payloads\FieldInterface;
 
 final readonly class FileProcessor
@@ -43,32 +44,29 @@ final readonly class FileProcessor
                 $product[FieldInterface::FIELD_CVE] = $cveModel;
                 $affectedModel = (new AffectedProductsStore($product))->process();
 
-                $platforms = $product[FieldInterface::FIELD_PLATFORMS]  ?? FieldInterface::FIELD_NULL;
-                if (!empty($platforms)) {
-                    foreach ($platforms as $platform) {
-                        $platform[FieldInterface::FIELD_AFFECTED_PRODUCT] = $affectedModel;
-                        (new PlatformStore($platform))->process();
-                    }
-                }
+//                $platforms = $product[FieldInterface::FIELD_PLATFORMS]  ?? FieldInterface::FIELD_NULL;
+//                if (!empty($platforms)) {
+//                    foreach ($platforms as $platform) {
+//                        $platform[FieldInterface::FIELD_AFFECTED_PRODUCT] = $affectedModel;
+//                        (new PlatformStore($platform))->process();
+//                    }
+//                }
                 // insert version
-                $productVersions = $product[FieldInterface::FIELD_VERSIONS] ?? FieldInterface::FIELD_NULL;
-                if(!empty($productVersions)) {
-                    foreach ($productVersions as $version) {
-                        $version[FieldInterface::FIELD_AFFECTED_PRODUCT] = $affectedModel;
-                        $versionModel = (new ProductVersionStore($version))->process();
-
-                        $changes = $version[FieldInterface::FIELD_CHANGES] ?? FieldInterface::FIELD_NULL;
-                        if (!empty($changes)) {
-                            foreach ($changes as $change) {
-                                $changes[FieldInterface::FIELD_PRODUCT_VERSION] = $versionModel;
-
-                                $sql = "INSERT INTO version_changes (product_version_id, at, status) VALUES (:product_version_id, :at, :status)";
-                                $stmt = $pdo->prepare($sql);
-                                $stmt->execute(['product_version_id' => $product_version_id, 'at' => $change['at'], 'status' => $change['status']]);
-                            }
-                        }
-                    }
-                }
+//                $productVersions = $product[FieldInterface::FIELD_VERSIONS] ?? FieldInterface::FIELD_NULL;
+//                if(!empty($productVersions)) {
+//                    foreach ($productVersions as $version) {
+//                        $version[FieldInterface::FIELD_AFFECTED_PRODUCT] = $affectedModel;
+//                        $versionModel = (new ProductVersionStore($version))->process();
+//
+//                        $changes = $version[FieldInterface::FIELD_CHANGES] ?? FieldInterface::FIELD_NULL;
+//                        if (!empty($changes)) {
+//                            foreach ($changes as $change) {
+//                                $changes[FieldInterface::FIELD_PRODUCT_VERSION] = $versionModel;
+//                                (new VersionChangeStore($change))->process();
+//                              }
+//                        }
+//                    }
+//                }
 
 
             }

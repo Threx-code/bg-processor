@@ -12,7 +12,7 @@ use Infrastructures\Entities\DomainEntity;
 final class Entity extends DomainEntity
 {
     public function __construct(
-        public Metric $metricId,
+        public int $metricId,
         public ?string $attackComplexity,
         public ?string $attackVector,
         public ?string $availabilityImpact,
@@ -53,7 +53,7 @@ final class Entity extends DomainEntity
     public function toArray(): array
     {
         return [
-            FieldInterface::FIELD_METRIC_ID => $this->metricId->id,
+            FieldInterface::FIELD_METRIC_ID => $this->metricId,
             FieldInterface::FIELD_ATTACK_COMPLEXITY => $this->attackComplexity,
             FieldInterface::FIELD_ATTACK_VECTOR => $this->attackVector,
             FieldInterface::FIELD_AVAILABILITY_IMPACT => $this->availabilityImpact,

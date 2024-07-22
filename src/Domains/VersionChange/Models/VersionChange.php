@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 /**
  * @property int $id
  * @property string $key
- * @property ProductVersion $productVersionId
+ * @property int $productVersionId
  * @property string $at
  * @property string $status
  */
@@ -31,10 +31,4 @@ class VersionChange extends Model
         return $this->belongsTo(ProductVersion::class, 'productVersionId', 'id');
     }
 
-    protected function casts(): array
-    {
-        return [
-            'productVersionId' => ProductVersion::class,
-        ];
-    }
 }

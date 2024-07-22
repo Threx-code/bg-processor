@@ -12,7 +12,7 @@ use Infrastructures\Entities\DomainEntity;
 final class Entity extends DomainEntity
 {
     public function __construct(
-        public ProblemType $problemType,
+        public int $problemTypeId,
         public ?string $cweId,
         public ?string $lang,
         public ?string $type,
@@ -24,7 +24,7 @@ final class Entity extends DomainEntity
     public static function fromEloquent(ProblemDescription $description): Entity
     {
         return new self(
-            problemType: $description->problemTypeId,
+            problemTypeId: $description->problemTypeId,
             cweId: $description->cweId,
             lang: $description->lang,
             type: $description->type,
@@ -37,7 +37,7 @@ final class Entity extends DomainEntity
     public function toArray(): array
     {
         return [
-            FieldInterface::FIELD_PROBLEM_TYPE_ID => $this->problemType->id,
+            FieldInterface::FIELD_PROBLEM_TYPE_ID => $this->problemTypeId,
             FieldInterface::FIELD_CWE_ID => $this->cweId,
             FieldInterface::FIELD_LANG => $this->lang,
             FieldInterface::FIELD_TYPE => $this->type,

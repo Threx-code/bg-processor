@@ -16,7 +16,7 @@ use Domains\Metric\Observers\Observer as MetricObserver;
 /**
  * @property int $id
  * @property string $key
- * @property Cve $cveId
+ * @property int $cveId
  * @property string $format
  */
 
@@ -42,10 +42,4 @@ class Metric extends Model
         return $this->hasMany(Scenario::class, 'metricId', 'id');
     }
 
-    protected function casts(): array
-    {
-        return [
-            'cveId' => Cve::class,
-        ];
-    }
 }

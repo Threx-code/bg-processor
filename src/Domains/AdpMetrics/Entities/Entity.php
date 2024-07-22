@@ -13,7 +13,7 @@ use Infrastructures\Entities\DomainEntity;
 final class Entity extends DomainEntity
 {
     public function __construct(
-        public Adp $adp,
+        public int $adpId,
         public ?string $type,
         public ?string $contentId,
         public ?string $role,
@@ -29,7 +29,7 @@ final class Entity extends DomainEntity
     public static function fromEloquent(AdpMetric $adpMetric): Entity
     {
         return new self(
-            adp: $adpMetric->adpId,
+            adpId: $adpMetric->adpId,
             type: $adpMetric->type,
             contentId: $adpMetric->contentId,
             role: $adpMetric->role,
@@ -46,7 +46,7 @@ final class Entity extends DomainEntity
     public function toArray(): array
     {
         return [
-            FieldInterface::FIELD_ADP_ID => $this->adp->id,
+            FieldInterface::FIELD_ADP_ID => $this->adpId,
             FieldInterface::FIELD_TYPE => $this->type,
             FieldInterface::FIELD_CONTENT_ID => $this->contentId,
             FieldInterface::FIELD_ROLE => $this->role,

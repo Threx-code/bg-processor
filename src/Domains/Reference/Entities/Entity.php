@@ -12,7 +12,7 @@ use Infrastructures\Entities\DomainEntity;
 final class Entity extends DomainEntity
 {
     public function __construct(
-        public Cve $cve,
+        public int $cveId,
         public ?string $url,
         public ?string $key = null,
         public ?int $id = null
@@ -21,7 +21,7 @@ final class Entity extends DomainEntity
     public static function fromEloquent(Reference $reference): Entity
     {
         return new self(
-            cve: $reference->cveId,
+            cveId: $reference->cveId,
             url: $reference->url,
             key: $reference->key,
             id: $reference->id
@@ -31,7 +31,7 @@ final class Entity extends DomainEntity
     public function toArray(): array
     {
         return [
-            FieldInterface::FIELD_CVE_ID => $this->cve->id,
+            FieldInterface::FIELD_CVE_ID => $this->cveId,
             FieldInterface::FIELD_URL => $this->url,
         ];
     }

@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 /**
  * @property int $id
  * @property string $key
- * @property Cve $cveId
+ * @property int $cveId
  * @property string $engine
  */
 
@@ -29,10 +29,4 @@ class XGenerator extends Model
         return $this->belongsTo(Cve::class, 'cveId', 'id');
     }
 
-    protected function casts(): array
-    {
-        return [
-            'cveId' => Cve::class,
-        ];
-    }
 }

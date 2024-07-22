@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 /**
  * @property int $id
  * @property string $key
- * @property Cve $cveId
+ * @property int $cveId
  * @property string $defect
  * @property string $discovery
  */
@@ -28,12 +28,5 @@ class Source extends Model
     public function cve(): BelongsTo
     {
         return $this->belongsTo(Cve::class, 'cveId', 'id');
-    }
-
-    protected function casts(): array
-    {
-        return [
-            'cveId' => Cve::class,
-        ];
     }
 }

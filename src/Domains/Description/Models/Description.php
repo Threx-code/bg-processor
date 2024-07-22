@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 /**
  * @property int $id
  * @property string $key
- * @property Cve $cveId
+ * @property int $cveId
  * @property string $value
  */
 
@@ -36,10 +36,4 @@ class Description extends Model
         return $this->hasMany(SupportingMedia::class, 'descriptionId', 'id');
     }
 
-    protected function casts(): array
-    {
-        return [
-            'cveId' => Cve::class,
-        ];
-    }
 }

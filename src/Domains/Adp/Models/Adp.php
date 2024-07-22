@@ -23,7 +23,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string $shortName
  * @property string $orgId
  * @property DateObject $dateUpdated
- * @property Cve cveId
+ * @property int cveId
  */
 #[observedBy(AdpObserver::class)]
 class Adp extends Model
@@ -36,7 +36,6 @@ class Adp extends Model
     {
         return [
             'dateUpdated' => Date::class,
-            'cveId' => Cve::class,
         ];
     }
 

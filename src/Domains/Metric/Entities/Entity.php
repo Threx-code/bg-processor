@@ -12,7 +12,7 @@ use Infrastructures\Entities\DomainEntity;
 final class Entity extends DomainEntity
 {
     public function __construct(
-        public Cve $cveId,
+        public int $cveId,
         public ?string $format,
         public ?string $key = null,
         public ?int $id = null
@@ -31,7 +31,7 @@ final class Entity extends DomainEntity
     public function toArray(): array
     {
         return [
-            FieldInterface::FIELD_CVE_ID => $this->cveId->id,
+            FieldInterface::FIELD_CVE_ID => $this->cveId,
             FieldInterface::FIELD_FORMAT => $this->format
         ];
     }

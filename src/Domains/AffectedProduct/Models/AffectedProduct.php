@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 /**
  * @property int $id
  * @property string $key
- * @property Cve $cveId
+ * @property int $cveId
  * @property string $product
  * @property string $vendor
  * @property string $defaultStatus
@@ -44,15 +44,4 @@ class AffectedProduct extends Model
         return $this->hasMany(ProductVersion::class, 'affectedProductId', 'id');
     }
 
-    public function versionChanges(): HasMany
-    {
-        return $this->hasMany(VersionChange::class, 'affectedProductId', 'id');
-    }
-
-    protected function casts(): array
-    {
-        return [
-            'cveId' => Cve::class,
-        ];
-    }
 }

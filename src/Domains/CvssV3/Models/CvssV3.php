@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 /**
  * @property int $id
  * @property string $key
- * @property Metric $metricId
+ * @property int $metricId
  * @property string $attackComplexity
  * @property string $attackVector
  * @property string $availabilityImpact
@@ -39,11 +39,5 @@ class CvssV3 extends Model
     public function metric(): BelongsTo
     {
         return $this->belongsTo(Metric::class, 'metricId', 'id');
-    }
-    protected function casts(): array
-    {
-        return [
-            'metricId' => Metric::class,
-        ];
     }
 }

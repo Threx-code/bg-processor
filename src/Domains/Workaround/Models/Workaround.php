@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 /**
  * @property int $id
  * @property string $key
- * @property Cve $cveId
+ * @property int $cveId
  * @property string $lang
  * @property string $value
  */
@@ -37,10 +37,4 @@ class Workaround extends Model
         return $this->hasMany(WorkaroundSupportingMedia::class, 'workaroundId', 'id');
     }
 
-    protected function casts(): array
-    {
-        return [
-            'cveId' => Cve::class,
-        ];
-    }
 }

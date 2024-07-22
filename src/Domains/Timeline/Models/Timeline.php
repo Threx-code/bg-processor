@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 /**
  * @property int $id
  * @property string $key
- * @property Cve $cveId
+ * @property int $cveId
  * @property string $lang
  * @property string $time
  * @property string $value
@@ -31,10 +31,4 @@ class Timeline extends Model
         return $this->belongsTo(Cve::class, 'cveId', 'id');
     }
 
-    protected function casts(): array
-    {
-        return [
-            'cveId' => Cve::class,
-        ];
-    }
 }

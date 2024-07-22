@@ -17,13 +17,11 @@ class CveStore extends BaseInsert
 {
     public function process(): Model
     {
-        return(
+        return (
             new CveService(
                 repository: new Repository(
                     query: Cve::query(),
-                    database: resolve(
-                        name: self::dbResolver()
-                    )
+                    database: self::dbResolver()
                 )
             )
         )->create(
@@ -32,15 +30,14 @@ class CveStore extends BaseInsert
                 title: $this->data[FieldInterface::FIELD_CVE_ID],
                 state: $this->data[FieldInterface::FIELD_STATE],
                 assignerShortName: $this->data[FieldInterface::FIELD_ASSIGNER_SHORT_NAME],
-                dateReserved:
-                new DateObject(
+                dateReserved: new DateObject(
                     date: DateImmutable::format($this->data[FieldInterface::FIELD_DATE_RESERVED])
                 ),
                 datePublished: new DateObject(
-                    date:  DateImmutable::format($this->data[FieldInterface::FIELD_DATE_PUBLISHED])
+                    date: DateImmutable::format($this->data[FieldInterface::FIELD_DATE_PUBLISHED])
                 ),
                 dateUpdated: new DateObject(
-                    date:  DateImmutable::format(date: $this->data[FieldInterface::FIELD_DATE_UPDATED])
+                    date: DateImmutable::format(date: $this->data[FieldInterface::FIELD_DATE_UPDATED])
                 )
             )
         );

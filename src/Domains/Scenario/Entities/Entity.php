@@ -13,7 +13,7 @@ use Infrastructures\Entities\DomainEntity;
 final class Entity extends DomainEntity
 {
     public function __construct(
-        public Metric $metric,
+        public int $metricId,
         public ?string $lang,
         public ?string $value,
         public ?string $key = null,
@@ -23,7 +23,7 @@ final class Entity extends DomainEntity
     public static function fromEloquent(Scenario $scenario): Entity
     {
         return new self(
-            metric: $scenario->metricId,
+            metricId: $scenario->metricId,
             lang: $scenario->lang,
             value: $scenario->value,
             key: $scenario->key,
@@ -34,7 +34,7 @@ final class Entity extends DomainEntity
     public function toArray(): array
     {
         return [
-            FieldInterface::FIELD_METRIC_ID => $this->metric->id,
+            FieldInterface::FIELD_METRIC_ID => $this->metricId,
             FieldInterface::FIELD_LANG => $this->lang,
             FieldInterface::FIELD_VALUE => $this->value,
         ];

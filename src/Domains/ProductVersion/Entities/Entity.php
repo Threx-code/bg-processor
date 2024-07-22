@@ -12,7 +12,7 @@ use Infrastructures\Entities\DomainEntity;
 final class Entity extends DomainEntity
 {
     public function __construct(
-        public AffectedProduct $affectedProduct,
+        public int $affectedProductId,
         public ?string $version,
         public ?string $lessThan,
         public ?string $status,
@@ -25,7 +25,7 @@ final class Entity extends DomainEntity
     public static function fromEloquent(ProductVersion $version): Entity
     {
         return new self(
-            affectedProduct: $version->affectedProductId,
+            affectedProductId: $version->affectedProductId,
             version: $version->version,
             lessThan: $version->lessThan,
             status: $version->status,
@@ -39,7 +39,7 @@ final class Entity extends DomainEntity
     public function toArray(): array
     {
         return [
-            FieldInterface::FIELD_AFFECTED_PRODUCT_ID => $this->affectedProduct->id,
+            FieldInterface::FIELD_AFFECTED_PRODUCT_ID => $this->affectedProductId,
             FieldInterface::FIELD_VERSION => $this->version,
             FieldInterface::FIELD_LESS_THAN => $this->lessThan,
             FieldInterface::FIELD_STATUS => $this->status,

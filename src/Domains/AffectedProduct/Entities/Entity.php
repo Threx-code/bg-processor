@@ -12,7 +12,7 @@ use Infrastructures\Entities\DomainEntity;
 final class Entity extends DomainEntity
 {
     public function __construct(
-        public Cve $cve,
+        public int $cveId,
         public ?string $product,
         public ?string $vendor,
         public ?string $defaultStatus,
@@ -23,7 +23,7 @@ final class Entity extends DomainEntity
     public static function fromEloquent(AffectedProduct $product): Entity
     {
         return new self(
-            cve: $product->cveId,
+            cveId: $product->cveId,
             product: $product->product,
             vendor: $product->vendor,
             defaultStatus: $product->defaultStatus,
@@ -35,7 +35,7 @@ final class Entity extends DomainEntity
     public function toArray(): array
     {
         return [
-            FieldInterface::FIELD_CVE_ID => $this->cve->id,
+            FieldInterface::FIELD_CVE_ID => $this->cveId,
             FieldInterface::FIELD_PRODUCT => $this->product,
             FieldInterface::FIELD_VENDOR => $this->vendor,
             FieldInterface::FIELD_DEFAULT_STATUS => $this->defaultStatus,

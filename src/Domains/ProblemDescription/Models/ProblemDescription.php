@@ -12,7 +12,7 @@ use Domains\ProblemDescription\Observers\Observer as ProblemDescriptionObserver;
 /**
  * @property int $id
  * @property string $key
- * @property ProblemType $problemTypeId
+ * @property int $problemTypeId
  * @property string $cweId
  * @property string $lang
  * @property string $type
@@ -31,10 +31,4 @@ class ProblemDescription extends Model
         return $this->belongsTo(ProblemType::class, 'problemTypeId', 'id');
     }
 
-    protected function casts(): array
-    {
-        return [
-            'problemTypeId' => ProblemType::class,
-        ];
-    }
 }

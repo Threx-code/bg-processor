@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 /**
  * @property int $id
  * @property string $key
- * @property Workaround $workaroundId
+ * @property int $workaroundId
  * @property bool $base64
  * @property string $type
  * @property string $value
@@ -30,10 +30,4 @@ class WorkaroundSupportingMedia extends Model
         return $this->belongsTo(Workaround::class, 'workaroundId', 'id');
     }
 
-    protected function casts(): array
-    {
-        return [
-            'workaroundId' => Workaround::class,
-        ];
-    }
 }

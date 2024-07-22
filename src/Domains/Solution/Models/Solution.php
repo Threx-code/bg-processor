@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 /**
  * @property int $id
  * @property string $key
- * @property Cve $cveId
+ * @property int $cveId
  * @property string $lang
  * @property string $value
  */
@@ -35,12 +35,5 @@ class Solution extends Model
     public function solutionSupportingMedia(): HasMany
     {
         return $this->hasMany(SolutionSupportingMedia::class, 'solutionId', 'id');
-    }
-
-    protected function casts(): array
-    {
-        return [
-            'cveId' => Cve::class,
-        ];
     }
 }

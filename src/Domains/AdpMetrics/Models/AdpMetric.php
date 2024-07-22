@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 /**
  * @property int $id
  * @property string $key
- * @property Adp $adpId
+ * @property int $adpId
  * @property string $type
  * @property string $contentId
  * @property string $role

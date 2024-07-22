@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 /**
  * @property int $id
  * @property string $key
- * @property Solution $solutionId
+ * @property int $solutionId
  * @property bool $base64
  * @property string $type
  * @property string $value
@@ -31,10 +31,4 @@ class SolutionSupportingMedia extends Model
         return $this->belongsTo(Solution::class, 'solutionId', 'id');
     }
 
-    protected function casts(): array
-    {
-        return [
-            'solutionId' => Solution::class,
-        ];
-    }
 }

@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 /**
  * @property int $id
  * @property string $key
- * @property Cve $cveId
+ * @property int $cveId
  * @property string $cweId
  * @property string $description
  * @property string $lang
@@ -38,12 +38,5 @@ class ProblemType extends Model
     public function problemDescription(): HasMany
     {
         return $this->hasMany(ProblemDescription::class, 'problemTypeId', 'id');
-    }
-
-    protected function casts(): array
-    {
-        return [
-            'cveId' => Cve::class,
-        ];
     }
 }

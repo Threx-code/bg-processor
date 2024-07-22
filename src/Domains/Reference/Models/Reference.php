@@ -13,7 +13,7 @@ use Domains\Reference\Observers\Observer as ReferenceObserver;
 /**
  * @property int $id
  * @property string $key
- * @property Cve $cveId
+ * @property int $cveId
  * @property string $url
  */
 
@@ -29,10 +29,4 @@ class Reference extends Model
         return $this->belongsTo(Cve::class, 'cveId', 'id');
     }
 
-    protected function casts(): array
-    {
-        return [
-            'cveId' => Cve::class,
-        ];
-    }
 }
