@@ -11,9 +11,11 @@ interface FieldInterface
     const FIELD_CVE_ID = 'cveId';
     const FIELD_ADP_ID = 'adpId';
     const FIELD_ORG_ID = 'orgId';
+    const ASSIGNER_ORD_ID = 'assignerOrgId';
     const FIELD_PROBLEM_TYPE_ID = 'problemTypeId';
     const FIELD_DESCRIPTION_ID = 'descriptionId';
     const FIELD_AFFECTED_PRODUCT_ID = 'affectedProductId';
+    const FIELD_PRODUCT_VERSION_ID = 'productVersionId';
     const FIELD_TITLE = 'title';
     const FIELD_STATE = 'state';
     const FIELD_ASSIGNER_SHORT_NAME = 'assignerShortName';
@@ -32,11 +34,7 @@ interface FieldInterface
     const FIELD_DATE = 'date';
     const FIELD_AUTOMATABLE = 'automatable';
     const FIELD_TECHNICAL_IMPACT = 'technicalImpact';
-    const FIELD_VERSION = 'version';
-    const FIELD_PRODUCT = 'product';
-    const FIELD_VENDOR = 'vendor';
     const FIELD_DEFAULT_STATUS = 'defaultStatus';
-    const FIELD_PLATFORM = 'platform';
     const FIELD_LESS_THAN = 'lessThan';
     const FIELD_STATUS = 'status';
     const FIELD_VERSION_TYPE = 'versionType';
@@ -65,4 +63,22 @@ interface FieldInterface
     const FIELD_ENGINE = 'engine';
     const FIELD_SHORT_NAME = 'shortName';
     const FIELD_CWE_ID = 'cweId';
+
+    const FIELD_NULL = null;
+    const FIELD_AFFECTED_PRODUCT = 'affectedProduct';
+    const FIELD_CVE_META_DATE = 'cveMetadata';
+    const FIELD_CONTAINERS = 'containers';
+    const FIELD_CNA = 'cna';
+    const FIELD_AFFECTED = 'affected';
+    const FIELD_CVE = 'cve';
+    const FIELD_PLATFORM = 'platform';
+    const FIELD_PLATFORMS = 'platforms';
+    const FIELD_VERSION = 'version';
+    const FIELD_VERSIONS = 'versions';
+    const FIELD_PRODUCT = 'product';
+    const FIELD_PRODUCTS = 'products';
+    const FIELD_VENDOR = 'vendor';
+    const FIELD_CHANGES = 'changes';
+    const FIELD_PRODUCT_VERSION = 'productVersion';
+
 }

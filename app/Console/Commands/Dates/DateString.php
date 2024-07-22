@@ -3,7 +3,7 @@
 namespace App\Console\Commands\Dates;
 
 use App\Console\Commands\CLIInterface;
-use App\Helpers\StringToDate;
+use App\Helpers\Dates\StringToDate;
 
 final class DateString
 {

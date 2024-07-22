@@ -7,6 +7,7 @@ namespace Infrastructures\Repositories;
 use Illuminate\Database\DatabaseManager;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Infrastructures\Entities\DomainEntity;
 use Throwable;
 
@@ -33,10 +34,10 @@ abstract class Repository implements RepositoryInterface
 
     /**
      * @param DomainEntity $entity
-     * @return DomainEntity
+     * @return Model
      * @throws Throwable
      */
-    public function create(DomainEntity $entity): DomainEntity
+    public function create(DomainEntity $entity): Model
     {
         return $this->database->transaction(
             callback: fn () => $this->query->create(
@@ -49,10 +50,10 @@ abstract class Repository implements RepositoryInterface
     /**
      * @param string|int $key
      * @param DomainEntity $entity
-     * @return DomainEntity
+     * @return Model
      * @throws Throwable
      */
-    public function update(string|int $key, DomainEntity $entity): DomainEntity
+    public function update(string|int $key, DomainEntity $entity): Model
     {
         return $this->database->transaction(
             callback: function () use ($key, $entity) {

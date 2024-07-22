@@ -35,9 +35,9 @@ abstract class BaseService
 
     /**
      * @param DomainEntity $entity
-     * @return DomainEntity
+     * @return Model
      */
-    public function create(DomainEntity $entity): DomainEntity
+    public function create(DomainEntity $entity): Model
     {
         return $this->repository->create(entity: $entity);
     }
@@ -45,9 +45,9 @@ abstract class BaseService
     /**
      * @param string $key
      * @param DomainEntity $entity
-     * @return DomainEntity
+     * @return Model
      */
-    public function update(string $key, DomainEntity $entity): DomainEntity
+    public function update(string $key, DomainEntity $entity): Model
     {
         return $this->repository->update(key: $key, entity: $entity);
     }

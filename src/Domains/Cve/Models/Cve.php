@@ -39,6 +39,7 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 /**
  * @property int $id
  * @property string $key
+ * @property string $assignerOrgId
  * @property string $title
  * @property string $state
  * @property string $assignerShortName

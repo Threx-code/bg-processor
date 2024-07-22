@@ -7,6 +7,7 @@ namespace Infrastructures\Repositories;
 use Illuminate\Database\DatabaseManager;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Infrastructures\Entities\DomainEntity;
 
 /**
@@ -19,9 +20,9 @@ interface RepositoryInterface
 
     public function find(int|string $key, array $with = []): ?object;
 
-    public function create(DomainEntity $entity): DomainEntity;
+    public function create(DomainEntity $entity): Model;
 
-    public function update(int|string $key, DomainEntity $entity): DomainEntity;
+    public function update(int|string $key, DomainEntity $entity): Model;
 
     public function delete(int|string $key): void;
 }

@@ -3,7 +3,7 @@
 namespace App\Console\Commands\Processor;
 
 use App\Console\Commands\CLIInterface;
-use App\Console\Commands\Processor\InsertServices\CveStore;
+use App\Console\Commands\Processor\Inserts\CveStore;
 use Domains\Adp\Services\Service as AdpService;
 
 use Domains\CveFileNames\Models\CveFileNames;

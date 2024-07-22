@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('cves', function (Blueprint $table) {
             $table->id()->index();
             $table->string('key')->unique()->index();
-            $table->uuid('assignerOrgId')->index();
+            $table->uuid('assignerOrgId')->nullable()->index();
             $table->string('title')->nullable()->index();
             $table->string('state')->nullable()->index();
             $table->string('assignerShortName')->nullable();

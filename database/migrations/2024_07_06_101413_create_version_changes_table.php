@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('version_changes', function (Blueprint $table) {
             $table->id()->index();
             $table->string('key')->unique()->index();
-            $table->foreignId('affectedProductId')->index()->constrained('affected_products')->cascadeOnDelete();
+            $table->foreignId('productVersionId')->index()->constrained('product_versions')->cascadeOnDelete();
             $table->string('at')->nullable();
             $table->string('status')->nullable();
             $table->timestamps();

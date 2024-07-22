@@ -6,13 +6,14 @@ namespace Domains\VersionChange\Entities;
 
 use Domains\AffectedProduct\Models\AffectedProduct;
 use Domains\Helpers\Payloads\FieldInterface;
+use Domains\ProductVersion\Models\ProductVersion;
 use Domains\VersionChange\Models\VersionChange;
 use Infrastructures\Entities\DomainEntity;
 
 final class Entity extends DomainEntity
 {
     public function __construct(
-        public AffectedProduct $affectedProduct,
+        public ProductVersion $productVersion,
         public ?string $at,
         public ?string $status,
         public ?string $key = null,
@@ -22,7 +23,7 @@ final class Entity extends DomainEntity
     public static function fromEloquent(VersionChange $change): Entity
     {
         return new self(
-            affectedProduct: $change->affectedProductId,
+            productVersion: $change->productVersionId,
             at: $change->at,
             status: $change->status,
             key: $change->key,
@@ -33,7 +34,7 @@ final class Entity extends DomainEntity
     public function toArray(): array
     {
         return [
-            FieldInterface::FIELD_AFFECTED_PRODUCT_ID => $this->affectedProduct->id,
+            FieldInterface::FIELD_PRODUCT_VERSION_ID => $this->productVersion->id,
             FieldInterface::FIELD_AT => $this->at,
             FieldInterface::FIELD_STATUS => $this->status,
         ];
