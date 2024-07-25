@@ -23,7 +23,6 @@ interface FieldInterface
     const FIELD_DATE_PUBLISHED = 'datePublished';
     const FIELD_DATE_UPDATED = 'dateUpdated';
     const FIELD_COMMIT_DATE = 'commitDate';
-    const FIELD_FIELD_NAME = 'fileName';
     const FIELD_YEAR = 'year';
     const FIELD_TYPE = 'type';
     const FIELD_CONTENT_ID = 'contentId';
@@ -101,6 +100,8 @@ interface FieldInterface
     const FIELD_EMPTY_ARRAY = [];
     const FIELD_DATA_TYPE = 'dataType';
     const FIELD_DATA_VERSION = 'dataVersion';
+    const FIELD_FILE_NAME = 'fileName';
+    const DEFAULT_DATE = '0000-00-00 00:00:00';
 
 }
 

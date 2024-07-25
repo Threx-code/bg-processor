@@ -29,20 +29,22 @@ class CveStore extends BaseInsert
                 assignerOrgId: $this->data[FieldInterface::ASSIGNER_ORD_ID],
                 title: $this->data[FieldInterface::FIELD_CVE_ID],
                 state: $this->data[FieldInterface::FIELD_STATE],
+                dataType: $this->data[FieldInterface::FIELD_DATA_TYPE],
+                dataVersion: $this->data[FieldInterface::FIELD_DATA_VERSION],
                 assignerShortName: $this->data[FieldInterface::FIELD_ASSIGNER_SHORT_NAME],
                 dateReserved: new DateObject(
                     date: DateImmutable::format(
-                        date: $this->data[FieldInterface::FIELD_DATE_RESERVED]
+                        date: $this->data[FieldInterface::FIELD_DATE_RESERVED] ?? FieldInterface::DEFAULT_DATE
                     )
                 ),
                 datePublished: new DateObject(
                     date: DateImmutable::format(
-                        date: $this->data[FieldInterface::FIELD_DATE_PUBLISHED]
+                        date: $this->data[FieldInterface::FIELD_DATE_PUBLISHED] ?? FieldInterface::DEFAULT_DATE
                     )
                 ),
                 dateUpdated: new DateObject(
                     date: DateImmutable::format(
-                        date: $this->data[FieldInterface::FIELD_DATE_UPDATED]
+                        date: $this->data[FieldInterface::FIELD_DATE_UPDATED] ?? FieldInterface::DEFAULT_DATE
                     )
                 )
             )

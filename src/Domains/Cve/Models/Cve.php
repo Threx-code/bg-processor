@@ -21,11 +21,14 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string $assignerOrgId
  * @property string $title
  * @property string $state
+ * @property string $dataType
+ * @property string $dataVersion
  * @property string $assignerShortName
  * @property DateObject $dateReserved
  * @property DateObject $datePublished
  * @property DateObject $dateUpdated
  */
+
 #[ObservedBy(CVeObserver::class)]
 class Cve extends Model
 {

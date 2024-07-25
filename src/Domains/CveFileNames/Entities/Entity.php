@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Domains\CveFileNames\Entities;
 
 use Domains\CveFileNames\Models\CveFileNames;
+use Domains\Helpers\Payloads\FieldInterface;
 use Infrastructures\Entities\DomainEntity;
 
 final class Entity extends DomainEntity
 {
     public function __construct(
         public ?string $fileName,
-        public ?string $year,
         public ?string $key = null,
         public ?int $id = null
     ) {}
@@ -27,7 +27,6 @@ final class Entity extends DomainEntity
     {
         return new self(
             fileName: $cveFileNames->fileName,
-            year: $cveFileNames->year,
             key: $cveFileNames->key,
             id: $cveFileNames->id
         );
@@ -36,8 +35,7 @@ final class Entity extends DomainEntity
     public function toArray(): array
     {
         return [
-            'fileName' => $this->fileName,
-            'year' => $this->year,
+            FieldInterface::FIELD_FILE_NAME => $this->fileName
         ];
     }
 }

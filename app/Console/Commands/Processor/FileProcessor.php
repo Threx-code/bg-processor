@@ -7,6 +7,7 @@ namespace App\Console\Commands\Processor;
 use App\Console\Commands\Processor\Inserts\AdpStore;
 use App\Console\Commands\Processor\Inserts\CnaStore;
 use App\Console\Commands\Processor\Inserts\CveStore;
+use App\Console\Commands\Processor\Inserts\FileNameStore;
 use Domains\Helpers\Payloads\FieldInterface;
 
 final readonly class FileProcessor
@@ -53,6 +54,8 @@ final readonly class FileProcessor
                 (new AdpStore($adp))->process();
             }
         }
+
+        (new FileNameStore([FieldInterface::FIELD_FILE_NAME => $file]))->process();
 
     }
 }

@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('key')->unique()->index();
             $table->string('fileName')->index();
-            $table->string('year')->index();
             $table->timestamps();
         });
     }
