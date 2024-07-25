@@ -29,7 +29,7 @@ class CveStore extends BaseInsert
                 state: $this->data[FieldInterface::FIELD_STATE],
                 dataType: $this->data[FieldInterface::FIELD_DATA_TYPE],
                 dataVersion: $this->data[FieldInterface::FIELD_DATA_VERSION],
-                assignerShortName: $this->data[FieldInterface::FIELD_ASSIGNER_SHORT_NAME],
+                assignerShortName: $this->data[FieldInterface::FIELD_ASSIGNER_SHORT_NAME] ?? self::emptyString(),
                 dateReserved: self::dateFormat(
                     date: $this->data,
                     key: FieldInterface::FIELD_DATE_RESERVED
