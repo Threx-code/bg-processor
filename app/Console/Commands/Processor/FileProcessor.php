@@ -22,22 +22,28 @@ final readonly class FileProcessor
             return ! in_array($file, ['.', '..']);
         });
 
-       $command->withProgressBar($files, function($file) use ($directory, $command) {
+        foreach ($files as $file) {
+            $startTime = microtime(true);
+
             $fullPath = $directory.DIRECTORY_SEPARATOR.$file;
             if (is_dir($fullPath)) {
                 $this->directory($fullPath, $command);
             } else {
                 $this->process($fullPath, $file);
             }
-        });
 
-        $command->info(
-            string: str_replace(
-                search: '{file_name}',
-                replace: $directory,
-                subject: CLIInterface::CURRENT_CVE_PROCESS_COMPLETED
-            )
-        );
+            $endTime = microtime(true);
+            $elapsedTimeMs = ($endTime - $startTime) * 1000;
+            $formattedTime = number_format($elapsedTimeMs, 2).'ms';
+
+            $command->info(
+                string: str_replace(
+                    search: ['{file_name}', '{duration}'],
+                    replace: [$file, $formattedTime],
+                    subject: CLIInterface::CURRENT_CVE_PROCESS_COMPLETED
+                )
+            );
+        }
     }
 
     private function process(string $fullPath, string $file): void
