@@ -38,7 +38,7 @@ final readonly class FileProcessor
         $cves[FieldInterface::FIELD_DATA_TYPE] = $data[FieldInterface::FIELD_DATA_TYPE];
         $cves[FieldInterface::FIELD_DATA_VERSION] = $data[FieldInterface::FIELD_DATA_VERSION];
 
-        $cveId = (new CveStore())->process()->id;
+        $cveId = (new CveStore($cves))->process()->id;
 
         $cnas = $data[FieldInterface::FIELD_CONTAINERS][FieldInterface::FIELD_CNA] ?? FieldInterface::FIELD_NULL;
         if ($cnas !== FieldInterface::FIELD_NULL) {
