@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace App\Console\Commands\Processor\Inserts;
 
-use App\Helpers\Dates\DateImmutable;
 use Domains\Cve\Entities\Entity as CveEntity;
 use Domains\Cve\Models\Cve;
 use Domains\Cve\Repositories\Repository;
 use Domains\Cve\Services\Service as CveService;
 use Domains\Helpers\Payloads\FieldInterface;
-use Domains\Helpers\ValueObjects\DateObject;
 use Illuminate\Database\Eloquent\Model;
 
 class CveStore extends BaseInsert
@@ -32,20 +30,14 @@ class CveStore extends BaseInsert
                 dataType: $this->data[FieldInterface::FIELD_DATA_TYPE],
                 dataVersion: $this->data[FieldInterface::FIELD_DATA_VERSION],
                 assignerShortName: $this->data[FieldInterface::FIELD_ASSIGNER_SHORT_NAME],
-                dateReserved: new DateObject(
-                    date: DateImmutable::format(
-                        date: $this->data[FieldInterface::FIELD_DATE_RESERVED] ?? FieldInterface::DEFAULT_DATE
-                    )
+                dateReserved: self::dateFormat(
+                    date: $this->data[FieldInterface::FIELD_DATE_RESERVED]
                 ),
-                datePublished: new DateObject(
-                    date: DateImmutable::format(
-                        date: $this->data[FieldInterface::FIELD_DATE_PUBLISHED] ?? FieldInterface::DEFAULT_DATE
-                    )
+                datePublished: self::dateFormat(
+                    date: $this->data[FieldInterface::FIELD_DATE_PUBLISHED]
                 ),
-                dateUpdated: new DateObject(
-                    date: DateImmutable::format(
-                        date: $this->data[FieldInterface::FIELD_DATE_UPDATED] ?? FieldInterface::DEFAULT_DATE
-                    )
+                dateUpdated: self::dateFormat(
+                    date: $this->data[FieldInterface::FIELD_DATE_UPDATED]
                 )
             )
         );

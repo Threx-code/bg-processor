@@ -62,8 +62,6 @@ interface FieldInterface
     const FIELD_ENGINE = 'engine';
     const FIELD_SHORT_NAME = 'shortName';
     const FIELD_CWE_ID = 'cweId';
-
-    const FIELD_NULL = null;
     const FIELD_AFFECTED_PRODUCT = 'affectedProduct';
     const FIELD_CVE_META_DATA = 'cveMetadata';
     const FIELD_CONTAINERS = 'containers';
@@ -97,11 +95,7 @@ interface FieldInterface
     const FIELD_PROVIDER_METADATA = 'providerMetadata';
     const FIELD_X_LEGACY_V4_RECORD = 'xLegacyV4Record';
     const FIELD_ADP = 'adp';
-    const FIELD_EMPTY_ARRAY = [];
     const FIELD_DATA_TYPE = 'dataType';
     const FIELD_DATA_VERSION = 'dataVersion';
     const FIELD_FILE_NAME = 'fileName';
-    const DEFAULT_DATE = '0000-00-00 00:00:00';
-
 }
-

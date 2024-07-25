@@ -8,6 +8,7 @@ use App\Console\Commands\Processor\Inserts\AdpStore;
 use App\Console\Commands\Processor\Inserts\CnaStore;
 use App\Console\Commands\Processor\Inserts\CveStore;
 use App\Console\Commands\Processor\Inserts\FileNameStore;
+use Domains\Helpers\Payloads\DefaultFieldInterface;
 use Domains\Helpers\Payloads\FieldInterface;
 
 final readonly class FileProcessor
@@ -24,38 +25,59 @@ final readonly class FileProcessor
             if (is_dir($fullPath)) {
                 $this->directory($fullPath);
             } else {
-
-                //check if the file exist in the database
-                $this->process($fullPath);
+                $this->process($fullPath, $file);
             }
         }
     }
 
-    private function process(string $file): void
+    private function process(string $fullPath, string $file): void
     {
-        $data = file_get_contents($file);
+        $data = file_get_contents($fullPath);
         $data = json_decode($data, true);
+
+        $cveId = $this->runCve($data);
+        $this->runCna($data[FieldInterface::FIELD_CONTAINERS][FieldInterface::FIELD_CNA], $cveId);
+        $this->runAdp($data[FieldInterface::FIELD_CONTAINERS][FieldInterface::FIELD_ADP], $cveId);
+        $this->runFilename($file);
+
+    }
+
+    public static function defaultNull(): null
+    {
+        return DefaultFieldInterface::FIELD_NULL;
+    }
+
+    public function runCve(mixed $data): mixed
+    {
         $cves = $data[FieldInterface::FIELD_CVE_META_DATA];
         $cves[FieldInterface::FIELD_DATA_TYPE] = $data[FieldInterface::FIELD_DATA_TYPE];
         $cves[FieldInterface::FIELD_DATA_VERSION] = $data[FieldInterface::FIELD_DATA_VERSION];
 
-        $cveId = (new CveStore($cves))->process()->id;
+        return (new CveStore($cves))->process()->id;
+    }
 
-        $cnas = $data[FieldInterface::FIELD_CONTAINERS][FieldInterface::FIELD_CNA] ?? FieldInterface::FIELD_NULL;
-        if ($cnas !== FieldInterface::FIELD_NULL) {
+    public function runCna($data, mixed $cveId): void
+    {
+        $cnas = $data ?? self::defaultNull();
+        if (! empty($cnas)) {
             $cnas[FieldInterface::FIELD_CVE_ID] = $cveId;
             (new CnaStore($cnas))->process();
         }
+    }
 
-        $adps = $data[FieldInterface::FIELD_CONTAINERS][FieldInterface::FIELD_ADP] ?? FieldInterface::FIELD_NULL;
-        if ($adps !== FieldInterface::FIELD_NULL) {
+    public function runAdp($data, mixed $cveId): void
+    {
+        $adps = $data ?? self::defaultNull();
+        if (! empty($adps)) {
             foreach ($adps as $adp) {
                 $adp[FieldInterface::FIELD_CVE_ID] = $cveId;
                 (new AdpStore($adp))->process();
             }
         }
+    }
 
+    public function runFilename(string $file): void
+    {
         (new FileNameStore([FieldInterface::FIELD_FILE_NAME => $file]))->process();
-
     }
 }

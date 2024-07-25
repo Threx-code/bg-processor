@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class FileNameStore extends BaseInsert
 {
-
     public function process(): Model
     {
         $service = new CveFileNameService(
