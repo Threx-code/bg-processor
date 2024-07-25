@@ -81,5 +81,24 @@ interface FieldInterface
     const FIELD_CHANGES = 'changes';
     const FIELD_PRODUCT_VERSION = 'productVersion';
     const CVE_REJECTED = 'REJECTED';
+    const FIELD_REJECTED_REASON = 'rejectedReasons';
+    const FIELD_CREDITS = 'credits';
+    const FIELD_SUPPORTING_MEDIA = 'supportingMedia';
+    const FIELD_DESCRIPTIONS = 'descriptions';
+    const FIELD_EXPLOITS = 'exploits';
+    const FIELD_METRICS = 'metrics';
+    const FIELD_CVSSV3_1 = 'cvssV3_1';
+    const FIELD_SCENARIOS = 'scenarios';
+    const FIELD_PROBLEM_TYPES = 'problemTypes';
+    const FIELD_REFERENCES = 'references';
+    const FIELD_SOLUTIONS = 'solutions';
+    const FIELD_TIMELINE = 'timeline';
+    const FIELD_WORKAROUNDS = 'workarounds';
+    const FIELD_X_GENERATOR = 'xGenerator';
+    const FIELD_PROVIDER_META_DATA = 'providerMetaData';
+    const FIELD_X_LEGACY_V4_RECORD = 'xLegacyV4Record';
+    const FIELD_ADP = 'adp';
+    const FIELD_EMPTY_ARRAY = [];
 
 }
+

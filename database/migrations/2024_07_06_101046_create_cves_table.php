@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('title')->nullable()->index();
             $table->string('state')->nullable()->index();
             $table->string('assignerShortName')->nullable();
+            $table->string('dataType')->nullable();
+            $table->string('dataVersion')->nullable();
             $table->timestamp('dateReserved')->nullable();
             $table->timestamp('datePublished')->nullable();
             $table->timestamp('dateUpdated')->nullable();

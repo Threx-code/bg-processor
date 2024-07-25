@@ -34,7 +34,7 @@ final class Entity extends DomainEntity
         return [
             FieldInterface::FIELD_LANG => $this->lang,
             FieldInterface::FIELD_VALUE => $this->value,
-            FieldInterface::FIELD_CVE_ID => $this->cveId
+            FieldInterface::FIELD_CVE_ID => $this->cveId,
         ];
     }
 }

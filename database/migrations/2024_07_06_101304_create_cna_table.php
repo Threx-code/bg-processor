@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -11,19 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('adps', function (Blueprint $table) {
+        Schema::create('cnas', function (Blueprint $table) {
             $table->id()->index();
             $table->string('key')->unique()->index();
             $table->foreignId('cveId')->index()->constrained('cves')->cascadeOnDelete();
             $table->jsonb('providerMetaData')->nullable();
-            $table->string('title')->nullable();
-            $table->jsonb('problemTypes')->nullable();
+            $table->jsonb('descriptions')->nullable();
             $table->jsonb('affected')->nullable();
-            $table->jsonb('metrics')->nullable();
+            $table->jsonb('references')->nullable();
+            $table->jsonb('problemTypes')->nullable();
+            $table->string('title')->nullable();
+            $table->jsonb('xGenerator')->nullable();
+            $table->jsonb('xLegacyV4Record')->nullable();
             $table->timestamps();
         });
     }
-
 
 
     /**
@@ -31,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('adps');
+        Schema::dropIfExists('cnas');
     }
 };
