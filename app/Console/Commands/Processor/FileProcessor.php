@@ -24,7 +24,6 @@ final readonly class FileProcessor
 
         foreach ($files as $file) {
             $startTime = microtime(true);
-
             $fullPath = $directory.DIRECTORY_SEPARATOR.$file;
             if (is_dir($fullPath)) {
                 $this->directory($fullPath, $command);
