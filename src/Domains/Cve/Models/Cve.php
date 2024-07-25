@@ -51,7 +51,7 @@ class Cve extends Model
         );
     }
 
-    public function c(): HasMany
+    public function cna(): HasMany
     {
         return $this->hasMany(
             related: Cna::class,
