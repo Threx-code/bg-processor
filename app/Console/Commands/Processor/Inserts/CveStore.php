@@ -26,9 +26,9 @@ class CveStore extends BaseInsert
             entity: new CveEntity(
                 assignerOrgId: $this->data[FieldInterface::ASSIGNER_ORD_ID],
                 title: $this->data[FieldInterface::FIELD_CVE_ID],
-                state: $this->data[FieldInterface::FIELD_STATE],
-                dataType: $this->data[FieldInterface::FIELD_DATA_TYPE],
-                dataVersion: $this->data[FieldInterface::FIELD_DATA_VERSION],
+                state: $this->data[FieldInterface::FIELD_STATE] ?? self::emptyString(),
+                dataType: $this->data[FieldInterface::FIELD_DATA_TYPE] ?? self::emptyString(),
+                dataVersion: $this->data[FieldInterface::FIELD_DATA_VERSION] ?? self::emptyString(),
                 assignerShortName: $this->data[FieldInterface::FIELD_ASSIGNER_SHORT_NAME] ?? self::emptyString(),
                 dateReserved: self::dateFormat(
                     date: $this->data,
