@@ -31,13 +31,16 @@ class CveStore extends BaseInsert
                 dataVersion: $this->data[FieldInterface::FIELD_DATA_VERSION],
                 assignerShortName: $this->data[FieldInterface::FIELD_ASSIGNER_SHORT_NAME],
                 dateReserved: self::dateFormat(
-                    date: $this->data[FieldInterface::FIELD_DATE_RESERVED]
+                    date: $this->data,
+                    key: FieldInterface::FIELD_DATE_RESERVED
                 ),
                 datePublished: self::dateFormat(
-                    date: $this->data[FieldInterface::FIELD_DATE_PUBLISHED]
+                    date: $this->data,
+                    key: FieldInterface::FIELD_DATE_PUBLISHED
                 ),
                 dateUpdated: self::dateFormat(
-                    date: $this->data[FieldInterface::FIELD_DATE_UPDATED]
+                    date: $this->data,
+                    key: FieldInterface::FIELD_DATE_UPDATED
                 )
             )
         );

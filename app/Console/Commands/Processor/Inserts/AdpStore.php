@@ -27,16 +27,20 @@ class AdpStore extends BaseInsert
                 cveId: $this->data[FieldInterface::FIELD_CVE_ID],
                 title: $this->data[FieldInterface::FIELD_TITLE] ?? self::emptyString(),
                 providerMetaData: self::jsonFormat(
-                    data: $this->data[FieldInterface::FIELD_PROVIDER_METADATA]
+                    data: $this->data,
+                    key: FieldInterface::FIELD_PROVIDER_METADATA
                 ),
-                problemTypes:  self::jsonFormat(
-                    data: $this->data[FieldInterface::FIELD_PROBLEM_TYPES]
+                problemTypes: self::jsonFormat(
+                    data: $this->data,
+                    key: FieldInterface::FIELD_PROBLEM_TYPES
                 ),
-                affected:  self::jsonFormat(
-                    data: $this->data[FieldInterface::FIELD_AFFECTED]
+                affected: self::jsonFormat(
+                    data: $this->data,
+                    key: FieldInterface::FIELD_AFFECTED
                 ),
-                metrics:  self::jsonFormat(
-                    data: $this->data[FieldInterface::FIELD_METRICS]
+                metrics: self::jsonFormat(
+                    data: $this->data,
+                    key: FieldInterface::FIELD_METRICS
                 )
             )
         );

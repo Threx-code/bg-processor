@@ -35,10 +35,10 @@ final readonly class FileProcessor
         $data = file_get_contents($fullPath);
         $data = json_decode($data, true);
 
-        $cveId = $this->runCve($data);
-        $this->runCna($data[FieldInterface::FIELD_CONTAINERS][FieldInterface::FIELD_CNA], $cveId);
-        $this->runAdp($data[FieldInterface::FIELD_CONTAINERS][FieldInterface::FIELD_ADP], $cveId);
-        $this->runFilename($file);
+        $cveId = $this->runCve(data: $data);
+        $this->runCna(data: $data, cveId: $cveId);
+        $this->runAdp(data: $data, cveId: $cveId);
+        $this->runFilename(file: $file);
 
     }
 
@@ -58,7 +58,7 @@ final readonly class FileProcessor
 
     public function runCna($data, mixed $cveId): void
     {
-        $cnas = $data ?? self::defaultNull();
+        $cnas = $data[FieldInterface::FIELD_CONTAINERS][FieldInterface::FIELD_CNA] ?? self::defaultNull();
         if (! empty($cnas)) {
             $cnas[FieldInterface::FIELD_CVE_ID] = $cveId;
             (new CnaStore($cnas))->process();
@@ -67,7 +67,7 @@ final readonly class FileProcessor
 
     public function runAdp($data, mixed $cveId): void
     {
-        $adps = $data ?? self::defaultNull();
+        $adps = $data[FieldInterface::FIELD_CONTAINERS][FieldInterface::FIELD_ADP] ?? self::defaultNull();
         if (! empty($adps)) {
             foreach ($adps as $adp) {
                 $adp[FieldInterface::FIELD_CVE_ID] = $cveId;
