@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('cve_file_names', function (Blueprint $table) {
             $table->id();
-            $table->string('key')->unique()->index();
+            $table->uuid('key')->unique()->index();
             $table->string('fileName')->index();
             $table->timestamps();
         });

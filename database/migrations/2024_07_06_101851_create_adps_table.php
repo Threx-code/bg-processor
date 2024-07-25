@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('adps', function (Blueprint $table) {
             $table->id()->index();
-            $table->string('key')->unique()->index();
+            $table->uuid('key')->unique()->index();
             $table->foreignId('cveId')->index()->constrained('cves')->cascadeOnDelete();
             $table->jsonb('providerMetadata')->nullable();
-            $table->string('title')->nullable();
+            $table->text('title')->nullable();
             $table->jsonb('problemTypes')->nullable();
             $table->jsonb('affected')->nullable();
             $table->jsonb('metrics')->nullable();

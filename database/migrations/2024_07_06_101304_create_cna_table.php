@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('cnas', function (Blueprint $table) {
             $table->id()->index();
-            $table->string('key')->unique()->index();
+            $table->uuid('key')->unique()->index();
             $table->foreignId('cveId')->index()->constrained('cves')->cascadeOnDelete();
             $table->jsonb('providerMetadata')->nullable();
             $table->jsonb('descriptions')->nullable();
             $table->jsonb('affected')->nullable();
             $table->jsonb('references')->nullable();
             $table->jsonb('problemTypes')->nullable();
-            $table->string('title')->nullable();
+            $table->text('title')->nullable();
             $table->jsonb('xGenerator')->nullable();
             $table->jsonb('xLegacyV4Record')->nullable();
             $table->timestamps();
