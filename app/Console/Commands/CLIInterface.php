@@ -21,6 +21,6 @@ interface CLIInterface
     const FIELD_DATE = 'date';
 
     const COMMAND_COMPLETED_MESSAGE = 'Command completed successfully.';
-
+    const CURRENT_CVE_PROCESS_COMPLETED = ' .......................... {file_name} DONE';
     const CVE_REPOSITORY_PATH = '/vendor/cyberrest/cvelistv5/cves';
 }

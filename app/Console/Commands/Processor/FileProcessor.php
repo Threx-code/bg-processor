@@ -4,30 +4,40 @@ declare(strict_types=1);
 
 namespace App\Console\Commands\Processor;
 
+use App\Console\Commands\CLIInterface;
 use App\Console\Commands\Processor\Inserts\AdpStore;
 use App\Console\Commands\Processor\Inserts\CnaStore;
 use App\Console\Commands\Processor\Inserts\CveStore;
 use App\Console\Commands\Processor\Inserts\FileNameStore;
 use Domains\Helpers\Payloads\DefaultFieldInterface;
 use Domains\Helpers\Payloads\FieldInterface;
+use Illuminate\Console\Command;
 
 final readonly class FileProcessor
 {
-    public function directory(string $directory): void
+    public function directory(string $directory, Command $command): void
     {
         $files = scandir($directory);
-        foreach ($files as $file) {
-            if ($file === '.' || $file === '..') {
-                continue;
-            }
+        $files = array_filter($files, function ($file) {
+            return ! in_array($file, ['.', '..']);
+        });
 
+       $command->withProgressBar($files, function($file) use ($directory, $command) {
             $fullPath = $directory.DIRECTORY_SEPARATOR.$file;
             if (is_dir($fullPath)) {
-                $this->directory($fullPath);
+                $this->directory($fullPath, $command);
             } else {
                 $this->process($fullPath, $file);
             }
-        }
+        });
+
+        $command->info(
+            string: str_replace(
+                search: '{file_name}',
+                replace: $directory,
+                subject: CLIInterface::CURRENT_CVE_PROCESS_COMPLETED
+            )
+        );
     }
 
     private function process(string $fullPath, string $file): void
