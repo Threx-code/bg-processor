@@ -99,6 +99,8 @@ interface FieldInterface
     const FIELD_X_LEGACY_V4_RECORD = 'xLegacyV4Record';
     const FIELD_ADP = 'adp';
     const FIELD_EMPTY_ARRAY = [];
+    const FIELD_DATA_TYPE = 'dataType';
+    const FIELD_DATA_VERSION = 'dataVersion';
 
 }
 

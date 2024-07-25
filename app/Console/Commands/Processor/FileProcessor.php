@@ -34,7 +34,11 @@ final readonly class FileProcessor
     {
         $data = file_get_contents($file);
         $data = json_decode($data, true);
-        $cveId = (new CveStore($data[FieldInterface::FIELD_CVE_META_DATA]))->process()->id;
+        $cves = $data[FieldInterface::FIELD_CVE_META_DATA];
+        $cves[FieldInterface::FIELD_DATA_TYPE] = $data[FieldInterface::FIELD_DATA_TYPE];
+        $cves[FieldInterface::FIELD_DATA_VERSION] = $data[FieldInterface::FIELD_DATA_VERSION];
+
+        $cveId = (new CveStore())->process()->id;
 
         $cnas = $data[FieldInterface::FIELD_CONTAINERS][FieldInterface::FIELD_CNA] ?? FieldInterface::FIELD_NULL;
         if ($cnas !== FieldInterface::FIELD_NULL) {
