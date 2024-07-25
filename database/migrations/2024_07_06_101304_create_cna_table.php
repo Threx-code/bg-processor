@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id()->index();
             $table->string('key')->unique()->index();
             $table->foreignId('cveId')->index()->constrained('cves')->cascadeOnDelete();
-            $table->jsonb('providerMetaData')->nullable();
+            $table->jsonb('providerMetadata')->nullable();
             $table->jsonb('descriptions')->nullable();
             $table->jsonb('affected')->nullable();
             $table->jsonb('references')->nullable();

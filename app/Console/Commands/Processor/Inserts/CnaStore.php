@@ -30,7 +30,7 @@ class CnaStore extends BaseInsert
                 title: $this->data[FieldInterface::FIELD_TITLE] ?? FieldInterface::FIELD_NULL,
                 providerMetaData: new JsonObject(
                     ProcessJson::format(
-                        data: $this->data[FieldInterface::FIELD_PROVIDER_META_DATA] ?? FieldInterface::FIELD_EMPTY_ARRAY
+                        data: $this->data[FieldInterface::FIELD_PROVIDER_METADATA] ?? FieldInterface::FIELD_EMPTY_ARRAY
                     )
                 ),
                 problemTypes: new JsonObject(

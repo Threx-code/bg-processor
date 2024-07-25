@@ -48,7 +48,7 @@ final class Entity extends DomainEntity
         return [
             FieldInterface::FIELD_CVE_ID => $this->cveId,
             FieldInterface::FIELD_TITLE => $this->title,
-            FieldInterface::FIELD_PROVIDER_META_DATA => $this->providerMetaData->data,
+            FieldInterface::FIELD_PROVIDER_METADATA => $this->providerMetaData->data,
             FieldInterface::FIELD_PROBLEM_TYPES => $this->problemTypes->data,
             FieldInterface::FIELD_DESCRIPTIONS => $this->descriptions->data,
             FieldInterface::FIELD_AFFECTED => $this->affected->data,

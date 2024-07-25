@@ -95,7 +95,7 @@ interface FieldInterface
     const FIELD_TIMELINE = 'timeline';
     const FIELD_WORKAROUNDS = 'workarounds';
     const FIELD_X_GENERATOR = 'xGenerator';
-    const FIELD_PROVIDER_META_DATA = 'providerMetaData';
+    const FIELD_PROVIDER_METADATA = 'providerMetadata';
     const FIELD_X_LEGACY_V4_RECORD = 'xLegacyV4Record';
     const FIELD_ADP = 'adp';
     const FIELD_EMPTY_ARRAY = [];
