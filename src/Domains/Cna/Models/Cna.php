@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Domains\Cna\Models;
 
 use Domains\Cve\Models\Cve;
+use Domains\Helpers\Casts\Date;
 use Domains\Helpers\Casts\JsonData;
+use Domains\Helpers\ValueObjects\DateObject;
 use Domains\Helpers\ValueObjects\JsonObject;
 use Domains\Cna\Observers\Observer as CnaObserver;
 use Domains\Models\concerns\HasKey;
@@ -26,6 +28,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property JsonObject $problemTypes
  * @property JsonObject $xGenerator
  * @property JsonObject $xLegacyV4Record
+ * @property DateObject $dateUpdated
  */
 #[ObservedBy(CnaObserver::class)]
 class Cna extends Model
@@ -49,6 +52,7 @@ class Cna extends Model
             'problemTypes' => JsonData::class,
             'xGenerator' => JsonData::class,
             'xLegacyV4Record' => JsonData::class,
+            'dateUpdated' => Date::class,
         ];
     }
 }

@@ -41,6 +41,10 @@ class AdpStore extends BaseInsert
                 metrics: self::jsonFormat(
                     data: $this->data,
                     key: FieldInterface::FIELD_METRICS
+                ),
+                dateUpdated: self::dateFormat(
+                    date: $this->data,
+                    key: FieldInterface::FIELD_DATE_UPDATED
                 )
             )
         );

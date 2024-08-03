@@ -7,9 +7,7 @@ namespace Infrastructures\Services;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Infrastructures\Entities\DomainEntity;
-use Infrastructures\Repositories\Repository;
 use Infrastructures\Repositories\RepositoryInterface;
-use Throwable;
 
 abstract class BaseService
 {
@@ -17,15 +15,8 @@ abstract class BaseService
         private readonly RepositoryInterface $repository
     ) {}
 
-    /**
-     * @param Model $model
-     * @return DomainEntity
-     */
     abstract protected function mapToEntity(Model $model): DomainEntity;
 
-    /**
-     * @return Collection
-     */
     public function all(): Collection
     {
         return $this->repository->all()->map(
@@ -33,20 +24,18 @@ abstract class BaseService
         );
     }
 
-    /**
-     * @param DomainEntity $entity
-     * @return Model
-     */
+    public function findBy(string $column, string $value, $with = []): Collection
+    {
+        return $this->repository->findBy(column: $column, value: $value, with: $with)->map(
+            callback: fn (Model $entity): DomainEntity => $this->mapToEntity($entity)
+        );
+    }
+
     public function create(DomainEntity $entity): Model
     {
         return $this->repository->create(entity: $entity);
     }
 
-    /**
-     * @param string $key
-     * @param DomainEntity $entity
-     * @return Model
-     */
     public function update(string $key, DomainEntity $entity): Model
     {
         return $this->repository->update(key: $key, entity: $entity);

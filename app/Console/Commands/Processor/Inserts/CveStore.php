@@ -13,16 +13,28 @@ use Illuminate\Database\Eloquent\Model;
 
 class CveStore extends BaseInsert
 {
+    public function __construct(
+        array $data,
+        private readonly ?string $key = null
+    ) {
+        parent::__construct($data);
+    }
+
     public function process(): Model
     {
-        return (
-            new CveService(
-                repository: new Repository(
-                    query: Cve::query(),
-                    database: self::dbResolver()
-                )
+        $service = new CveService(
+            repository: new Repository(
+                query: Cve::query(),
+                database: self::dbResolver()
             )
-        )->create(
+        );
+
+        return empty($this->key) ? $this->create($service) : $this->update($service);
+    }
+
+    public function create(CveService $service): Model
+    {
+        return $service->create(
             entity: new CveEntity(
                 assignerOrgId: $this->data[FieldInterface::ASSIGNER_ORD_ID],
                 title: $this->data[FieldInterface::FIELD_CVE_ID],
@@ -42,6 +54,19 @@ class CveStore extends BaseInsert
                     date: $this->data,
                     key: FieldInterface::FIELD_DATE_UPDATED
                 )
+            )
+        );
+    }
+
+    private function update(CveService $service): Model
+    {
+        return $service->update(
+            key: $this->key,
+            entity: new CveEntity(
+                dateReserved: self::dateFormat(
+                    date: $this->data,
+                    key: FieldInterface::FIELD_DATE_RESERVED
+                ),
             )
         );
     }

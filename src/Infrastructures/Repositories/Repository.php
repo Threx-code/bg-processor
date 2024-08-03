@@ -32,6 +32,17 @@ abstract class Repository implements RepositoryInterface
         );
     }
 
+    public function findBy(string $column, string $value, array $with = []): Collection
+    {
+        return $this->query->with(
+            relations: $with
+        )->where(
+            column: $column,
+            operator: '=',
+            value: $value
+        )->get();
+    }
+
     /**
      * @param DomainEntity $entity
      * @return Model

@@ -53,6 +53,10 @@ class CnaStore extends BaseInsert
                 xLegacyV4Record: self::jsonFormat(
                     data: $this->data,
                     key: FieldInterface::FIELD_X_LEGACY_V4_RECORD
+                ),
+                dateUpdated: self::dateFormat(
+                    date: $this->data,
+                    key: FieldInterface::FIELD_DATE_UPDATED
                 )
             )
         );

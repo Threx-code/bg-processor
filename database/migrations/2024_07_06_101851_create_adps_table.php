@@ -20,6 +20,7 @@ return new class extends Migration
             $table->jsonb('problemTypes')->nullable();
             $table->jsonb('affected')->nullable();
             $table->jsonb('metrics')->nullable();
+            $table->timestamp('dateUpdated')->nullable();
             $table->timestamps();
         });
     }

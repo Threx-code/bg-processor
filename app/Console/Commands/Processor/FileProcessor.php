@@ -9,9 +9,12 @@ use App\Console\Commands\Processor\Inserts\AdpStore;
 use App\Console\Commands\Processor\Inserts\CnaStore;
 use App\Console\Commands\Processor\Inserts\CveStore;
 use App\Console\Commands\Processor\Inserts\FileNameStore;
+use App\Console\Commands\Processor\Queries\CveQuery;
+use Carbon\Carbon;
 use Domains\Helpers\Payloads\DefaultFieldInterface;
 use Domains\Helpers\Payloads\FieldInterface;
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Model;
 
 final readonly class FileProcessor
 {
@@ -50,49 +53,73 @@ final readonly class FileProcessor
         $data = file_get_contents($fullPath);
         $data = json_decode($data, true);
 
-        $cveId = $this->runCve(data: $data);
-        $this->runCna(data: $data, cveId: $cveId);
-        $this->runAdp(data: $data, cveId: $cveId);
+        $cve = $this->runCve(data: $data);
         $this->runFilename(file: $file);
 
     }
 
-    public static function defaultNull(): null
+    private static function defaultNull(): null
     {
         return DefaultFieldInterface::FIELD_NULL;
     }
 
-    public function runCve(mixed $data): mixed
+    private function runCve(mixed $data): Model
     {
-        $cves = $data[FieldInterface::FIELD_CVE_META_DATA];
+        $cveKey = '';
+
+        $cves = $data[FieldInterface::FIELD_CVE_META_DATA] ?? self::defaultNull();
         $cves[FieldInterface::FIELD_DATA_TYPE] = $data[FieldInterface::FIELD_DATA_TYPE];
         $cves[FieldInterface::FIELD_DATA_VERSION] = $data[FieldInterface::FIELD_DATA_VERSION];
 
-        return (new CveStore($cves))->process()->id;
+        $cveFromDb = (new CveQuery($cves))->query()->first();
+
+        if ($cveFromDb) {
+            $dateUpdated = Carbon::parse($cves[FieldInterface::FIELD_DATE_UPDATED])->format('Y-m-d') ?? self::defaultNull();
+            $dateUpdatedFromDb = Carbon::parse($cveFromDb->dateUpdated->date)->format('Y-m-d');
+            if ($dateUpdated > $dateUpdatedFromDb) {
+                $cveKey = $cveFromDb->key;
+            }
+        }
+
+        $cve = (new CveStore($cves, $cveKey))->process();
+
+        if ($dateUpdated !== $dateUpdatedFromDb) {
+            $this->runCna(data: $data, cve: $cve);
+            $this->runAdp(data: $data, cve: $cve);
+        }
+
+        return $cve;
     }
 
-    public function runCna($data, mixed $cveId): void
+    private function runCna($data, mixed $cve): void
     {
         $cnas = $data[FieldInterface::FIELD_CONTAINERS][FieldInterface::FIELD_CNA] ?? self::defaultNull();
         if (! empty($cnas)) {
-            $cnas[FieldInterface::FIELD_CVE_ID] = $cveId;
+            $cnas[FieldInterface::FIELD_CVE_ID] = $cve->id;
+            $cnas[FieldInterface::FIELD_DATE_UPDATED] = $cve->dateUpdated;
             (new CnaStore($cnas))->process();
         }
     }
 
-    public function runAdp($data, mixed $cveId): void
+    private function runAdp($data, mixed $cve): void
     {
         $adps = $data[FieldInterface::FIELD_CONTAINERS][FieldInterface::FIELD_ADP] ?? self::defaultNull();
         if (! empty($adps)) {
             foreach ($adps as $adp) {
-                $adp[FieldInterface::FIELD_CVE_ID] = $cveId;
+                $adp[FieldInterface::FIELD_CVE_ID] = $cve->id;
+                $adp[FieldInterface::FIELD_DATE_UPDATED] = $cve->dateUpdated;
                 (new AdpStore($adp))->process();
             }
         }
     }
 
-    public function runFilename(string $file): void
+    private function runFilename(string $file): void
     {
         (new FileNameStore([FieldInterface::FIELD_FILE_NAME => $file]))->process();
+    }
+
+    private function parseDate(string $date): string
+    {
+        return Carbon::parse($date)->format('Y-m-d');
     }
 }

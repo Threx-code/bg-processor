@@ -15,9 +15,10 @@ final class Service extends BaseService
 {
     protected function mapToEntity(Model $model): DomainEntity
     {
-        ModelValidator::validate(model: $model, expectedModel: Entity::class);
+        ModelValidator::validate(model: $model, expectedModel: Cve::class);
 
         /** @var Cve $model */
         return Entity::fromEloquent(cve: $model);
     }
+
 }

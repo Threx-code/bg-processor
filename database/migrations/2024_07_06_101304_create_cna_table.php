@@ -23,6 +23,7 @@ return new class extends Migration
             $table->text('title')->nullable();
             $table->jsonb('xGenerator')->nullable();
             $table->jsonb('xLegacyV4Record')->nullable();
+            $table->timestamp('dateUpdated')->nullable();
             $table->timestamps();
         });
     }

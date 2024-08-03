@@ -20,6 +20,8 @@ interface RepositoryInterface
 
     public function find(int|string $key, array $with = []): ?object;
 
+    public function findBy(string $column, string $value, array $with = []): Collection;
+
     public function create(DomainEntity $entity): Model;
 
     public function update(int|string $key, DomainEntity $entity): Model;

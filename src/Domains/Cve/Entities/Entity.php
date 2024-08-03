@@ -7,22 +7,25 @@ namespace Domains\Cve\Entities;
 use Domains\Cve\Models\Cve;
 use Domains\Helpers\Payloads\FieldInterface;
 use Domains\Helpers\ValueObjects\DateObject;
+use Illuminate\Database\Eloquent\Collection;
 use Infrastructures\Entities\DomainEntity;
 
 final class Entity extends DomainEntity
 {
     public function __construct(
-        public ?string $assignerOrgId,
-        public ?string $title,
-        public ?string $state,
-        public ?string $dataType,
-        public ?string $dataVersion,
-        public ?string $assignerShortName,
-        public DateObject $dateReserved,
-        public DateObject $datePublished,
-        public DateObject $dateUpdated,
+        public ?string $assignerOrgId = null,
+        public ?string $title = null,
+        public ?string $state = null,
+        public ?string $dataType = null,
+        public ?string $dataVersion = null,
+        public ?string $assignerShortName = null,
+        public ?DateObject $dateReserved = null,
+        public ?DateObject $datePublished = null,
+        public ?DateObject $dateUpdated = null,
         public ?string $key = null,
-        public ?int $id = null
+        public ?int $id = null,
+        public ?Collection $adp = null,
+        public ?Collection $cna = null
     ) {}
 
     public static function fromEloquent(Cve $cve): Entity
@@ -38,7 +41,9 @@ final class Entity extends DomainEntity
             datePublished: $cve->datePublished,
             dateUpdated: $cve->dateUpdated,
             key: $cve->key,
-            id: $cve->id
+            id: $cve->id,
+            adp: $cve->adp,
+            cna: $cve->cna
         );
     }
 

@@ -6,6 +6,7 @@ namespace Domains\Adp\Entities;
 
 use Domains\Adp\Models\Adp;
 use Domains\Helpers\Payloads\FieldInterface;
+use Domains\Helpers\ValueObjects\DateObject;
 use Domains\Helpers\ValueObjects\JsonObject;
 use Infrastructures\Entities\DomainEntity;
 
@@ -18,6 +19,7 @@ final class Entity extends DomainEntity
         public ?JsonObject $problemTypes,
         public ?JsonObject $affected,
         public ?JsonObject $metrics,
+        public DateObject $dateUpdated,
         public ?string $key = null,
         public ?int $id = null
     ) {}
@@ -31,6 +33,7 @@ final class Entity extends DomainEntity
             problemTypes: $adp->problemTypes,
             affected: $adp->affected,
             metrics: $adp->metrics,
+            dateUpdated: $adp->dateUpdated,
             key: $adp->key,
             id: $adp->id
         );
@@ -45,6 +48,7 @@ final class Entity extends DomainEntity
             FieldInterface::FIELD_PROBLEM_TYPES => $this->problemTypes->data,
             FieldInterface::FIELD_AFFECTED => $this->affected->data,
             FieldInterface::FIELD_METRICS => $this->metrics->data,
+            FieldInterface::FIELD_DATE_UPDATED => $this->dateUpdated,
         ];
     }
 }

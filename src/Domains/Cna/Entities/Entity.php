@@ -6,6 +6,7 @@ namespace Domains\Cna\Entities;
 
 use Domains\Cna\Models\Cna;
 use Domains\Helpers\Payloads\FieldInterface;
+use Domains\Helpers\ValueObjects\DateObject;
 use Domains\Helpers\ValueObjects\JsonObject;
 use Infrastructures\Entities\DomainEntity;
 
@@ -21,6 +22,7 @@ final class Entity extends DomainEntity
         public ?JsonObject $references,
         public ?JsonObject $xGenerator,
         public ?JsonObject $xLegacyV4Record,
+        public DateObject $dateUpdated,
         public ?string $key = null,
         public ?int $id = null
     ) {}
@@ -37,6 +39,7 @@ final class Entity extends DomainEntity
             references: $cna->references,
             xGenerator: $cna->xGenerator,
             xLegacyV4Record: $cna->xLegacyV4Record,
+            dateUpdated: $cna->dateUpdated,
             key: $cna->key,
             id: $cna->id
 
@@ -55,6 +58,7 @@ final class Entity extends DomainEntity
             FieldInterface::FIELD_REFERENCES => $this->references->data,
             FieldInterface::FIELD_X_GENERATOR => $this->xGenerator->data,
             FieldInterface::FIELD_X_LEGACY_V4_RECORD => $this->xLegacyV4Record->data,
+            FieldInterface::FIELD_DATE_UPDATED => $this->dateUpdated,
         ];
     }
 }
