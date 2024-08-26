@@ -10,8 +10,8 @@ final class SaveCommitDate
     {
         file_put_contents(
             filename: app_path(
-            path: CLIInterface::COMMIT_JSON_FILE_PATH
-        ),
+                path: CLIInterface::COMMIT_JSON_FILE_PATH
+            ),
             data: json_encode(
                 [CLIInterface::LAST_COMMIT_DATE => $date],
                 JSON_PRETTY_PRINT

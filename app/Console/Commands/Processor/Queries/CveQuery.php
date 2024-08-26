@@ -20,14 +20,15 @@ class CveQuery extends BaseQuery
 
         );
     }
+
     private function with(): array
     {
         return [
-            'adp' => function ($query) {
-                $query->orderBy('created_at', 'desc')->limit(1);
+            FieldInterface::FIELD_ADP => function ($query) {
+                $query->orderBy(FieldInterface::CREATED_AT, FieldInterface::DESC_ORDER)->limit(1);
             },
-            'cna' => function ($query) {
-                $query->orderBy('created_at', 'desc')->limit(1);
+            FieldInterface::FIELD_CNA => function ($query) {
+                $query->orderBy(FieldInterface::CREATED_AT, FieldInterface::DESC_ORDER)->limit(1);
             },
         ];
     }
@@ -35,10 +36,9 @@ class CveQuery extends BaseQuery
     public function query(): Collection
     {
         return $this->service()->findBy(
-            column: 'title',
+            column: FieldInterface::FIELD_TITLE,
             value: $this->data[FieldInterface::FIELD_CVE_ID],
             with: $this->with()
         );
     }
-
 }

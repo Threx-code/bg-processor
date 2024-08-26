@@ -8,13 +8,11 @@ use App\Console\Commands\CLIInterface;
 use App\Console\Commands\Processor\Inserts\AdpStore;
 use App\Console\Commands\Processor\Inserts\CnaStore;
 use App\Console\Commands\Processor\Inserts\CveStore;
-use App\Console\Commands\Processor\Inserts\FileNameStore;
 use App\Console\Commands\Processor\Queries\CveQuery;
 use Carbon\Carbon;
 use Domains\Helpers\Payloads\DefaultFieldInterface;
 use Domains\Helpers\Payloads\FieldInterface;
 use Illuminate\Console\Command;
-use Illuminate\Database\Eloquent\Model;
 
 final readonly class FileProcessor
 {

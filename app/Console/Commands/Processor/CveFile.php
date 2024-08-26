@@ -53,13 +53,10 @@ class CveFile extends Command
         if ($commitDate !== $dateFromDb) {
             $directory = dirname(__FILE__, 5).CLIInterface::CVE_REPOSITORY_PATH;
             (new FileProcessor())->directory($directory, $this);
-            $commitInserted = (! empty($checkCommitData->key)) ? $gitHubService->update($commits, $commitDate) : $this->$gitHubService($commitDate);
+            $commitInserted = (! empty($checkCommitData->key)) ? $gitHubService->update($commits, $commitDate) : $gitHubService->insert($commitDate);
         }
 
         $this->info(CLIInterface::CURRENT_CVE_PROCESS_COMPLETED);
     }
-
-
-
 
 }

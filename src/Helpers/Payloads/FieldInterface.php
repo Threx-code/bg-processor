@@ -98,4 +98,6 @@ interface FieldInterface
     const FIELD_DATA_TYPE = 'dataType';
     const FIELD_DATA_VERSION = 'dataVersion';
     const FIELD_FILE_NAME = 'fileName';
+    const CREATED_AT = 'created_at';
+    const DESC_ORDER = 'desc';
 }
