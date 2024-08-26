@@ -52,10 +52,7 @@ final readonly class FileProcessor
     {
         $data = file_get_contents($fullPath);
         $data = json_decode($data, true);
-
-        $cve = $this->runCve(data: $data);
-        $this->runFilename(file: $file);
-
+        $this->runCve(data: $data);
     }
 
     private static function defaultNull(): null
@@ -63,18 +60,18 @@ final readonly class FileProcessor
         return DefaultFieldInterface::FIELD_NULL;
     }
 
-    private function runCve(mixed $data): Model
+    private function runCve(mixed $data): void
     {
-        $cveKey = '';
+        $cveKey = $dateUpdatedFromDb = self::defaultNull();
 
         $cves = $data[FieldInterface::FIELD_CVE_META_DATA] ?? self::defaultNull();
-        $cves[FieldInterface::FIELD_DATA_TYPE] = $data[FieldInterface::FIELD_DATA_TYPE];
-        $cves[FieldInterface::FIELD_DATA_VERSION] = $data[FieldInterface::FIELD_DATA_VERSION];
+        $cves[FieldInterface::FIELD_DATA_TYPE] = $data[FieldInterface::FIELD_DATA_TYPE] ?? self::defaultNull();
+        $cves[FieldInterface::FIELD_DATA_VERSION] = $data[FieldInterface::FIELD_DATA_VERSION] ?? self::defaultNull();
+        $dateUpdated = $this->parseDate($cves[FieldInterface::FIELD_DATE_UPDATED]) ?? self::defaultNull();
 
         $cveFromDb = (new CveQuery($cves))->query()->first();
 
         if ($cveFromDb) {
-            $dateUpdated = Carbon::parse($cves[FieldInterface::FIELD_DATE_UPDATED])->format('Y-m-d') ?? self::defaultNull();
             $dateUpdatedFromDb = Carbon::parse($cveFromDb->dateUpdated->date)->format('Y-m-d');
             if ($dateUpdated > $dateUpdatedFromDb) {
                 $cveKey = $cveFromDb->key;
@@ -87,8 +84,6 @@ final readonly class FileProcessor
             $this->runCna(data: $data, cve: $cve);
             $this->runAdp(data: $data, cve: $cve);
         }
-
-        return $cve;
     }
 
     private function runCna($data, mixed $cve): void
@@ -111,11 +106,6 @@ final readonly class FileProcessor
                 (new AdpStore($adp))->process();
             }
         }
-    }
-
-    private function runFilename(string $file): void
-    {
-        (new FileNameStore([FieldInterface::FIELD_FILE_NAME => $file]))->process();
     }
 
     private function parseDate(string $date): string
